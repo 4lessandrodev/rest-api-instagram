@@ -8,7 +8,7 @@ module.exports = {
         allowNull: false,
         comment: "null",
         references: {
-          model: 'User',
+          model: 'users',
           key: 'id'
         }
       },
@@ -17,7 +17,7 @@ module.exports = {
         allowNull: false,
         comment: "null",
         references: {
-          model: 'Post',
+          model: 'posts',
           key: 'id'
         }
       }
