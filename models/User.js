@@ -31,18 +31,18 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: 'avatar.png',
       comment: "null"
     },
-    'createdAt': {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-      comment: "null"
-    },
-    'updatedAt': {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-      comment: "null"
-    }
+    // 'createdAt': {
+    //   type: DataTypes.DATE,
+    //   allowNull: false,
+    //   defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+    //   comment: "null"
+    // },
+    // 'updatedAt': {
+    //   type: DataTypes.DATE,
+    //   allowNull: false,
+    //   defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+    //   comment: "null"
+    // }
   }, {
     tableName: 'users'
   });
