@@ -5,7 +5,8 @@ module.exports = {
     return queryInterface.createTable('users', {
         id: {
           type: Sequelize.INTEGER(11),
-          allowNull: false,
+        allowNull: false,
+          autoIncrement:true,
           primaryKey: true,
           comment: "null"
         },
@@ -34,13 +35,13 @@ module.exports = {
         createdAt: {
           type: Sequelize.DATE,
           allowNull: false,
-          defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+          defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
           comment: "null"
         },
         updatedAt: {
           type: Sequelize.DATE,
           allowNull: false,
-          defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+          defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
           comment: "null"
         }
       })

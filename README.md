@@ -1,8 +1,6 @@
-# Rest Api com NodeJS
+# Rest Api instagram fake com NodeJS
 
-O objetivo da criação desta api é colocar em prática o curso da DH
-
-Foi utilizado o conceito de classes, e orientação a objeto 
+O objetivo da criação desta api é colocar em prática o curso da DH e codar em equipe
 
 #### Tecnologias aplicadas
 
@@ -12,4 +10,12 @@ Foi utilizado o conceito de classes, e orientação a objeto
 - javaScript
 - JWT
 - CryptoJS
+- Sequelize
+- Bcrypt
+
+------------
+
+###### Banco de dados
+
+![Database](http://alessandrodev.com/imagens/database.png "Database")
 
