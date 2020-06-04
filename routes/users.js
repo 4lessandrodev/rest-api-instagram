@@ -6,6 +6,8 @@ var userController = require('../controllers/userController');
 router.post('/save', userController.save);
 
 //localhost:3000/users/edit/1
-router.put('/edit/:id', userController.save);
+router.put('/edit/:id', userController.edit);
+
+router.delete('/delete/:id', userController.delete);
 
 module.exports = router;

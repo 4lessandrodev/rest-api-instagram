@@ -28,5 +28,16 @@ module.exports = {
         } catch (error) {
             res.status(401).json({ error });
         }
+    },
+    delete: async (req,res) => {
+        try {
+            let id = req.params.id;
+            let result = await User.destroy({
+                where: { id }
+            });
+            res.status(200).json({ result });
+        } catch (error) {
+            res.status(401).json({ error });
+        }
     }
 };
