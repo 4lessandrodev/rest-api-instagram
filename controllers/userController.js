@@ -18,7 +18,7 @@ module.exports = {
 
     edit: async (req, res) => {
         try {
-            let id = req.params.id;
+            let { id } = req.params;
             let { email, password, name, avatar } = req.body;
             let result = await User.update({ email, password, name, avatar },
                 {
