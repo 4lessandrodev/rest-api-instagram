@@ -10,6 +10,8 @@ O objetivo da criação desta api é colocar em prática o curso da DH e codar e
 - javaScript
 - JWT
 - CryptoJS
+- Sequelize
+- Bcrypt
 
 ------------
 
