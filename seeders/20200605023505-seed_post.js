@@ -1,20 +1,213 @@
 'use strict';
+const faker = require('faker');
+const moment = require('moment');
+let date = new Date();
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    /*
-      Add altering commands here.
-      Return a promise to correctly handle asynchronicity.
-
-      Example:
-      return queryInterface.bulkInsert('posts', [{
-        name: 'John Doe',
-        isBetaMember: false
-      }], {});
-    */
+    return queryInterface.bulkInsert('posts', [
+      {
+        id:1,
+        image: faker.image.image(),
+        text: faker.lorem.text(),
+        n_likes: 0,
+        n_coments: 0,
+        createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
+        updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
+      },
+      {
+        id: 2,
+        image: faker.image.image(),
+        text: faker.lorem.text(),
+        n_likes: 0,
+        n_coments: 0,
+        createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
+        updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
+      },
+      {
+        id: 3,
+        image: faker.image.image(),
+        text: faker.lorem.text(),
+        n_likes: 0,
+        n_coments: 0,
+        createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
+        updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
+      },
+      {
+        id: 4,
+        image: faker.image.image(),
+        text: faker.lorem.text(),
+        n_likes: 0,
+        n_coments: 0,
+        createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
+        updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
+      },
+      {
+        id: 5,
+        image: faker.image.image(),
+        text: faker.lorem.text(),
+        n_likes: 0,
+        n_coments: 0,
+        createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
+        updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
+      },
+      {
+        id: 6,
+        image: faker.image.image(),
+        text: faker.lorem.text(),
+        n_likes: 0,
+        n_coments: 0,
+        createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
+        updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
+      },
+      {
+        id: 7,
+        image: faker.image.image(),
+        text: faker.lorem.text(),
+        n_likes: 0,
+        n_coments: 0,
+        createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
+        updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
+      },
+      {
+        id:8,
+        image: faker.image.image(),
+        text: faker.lorem.text(),
+        n_likes: 0,
+        n_coments: 0,
+        createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
+        updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
+      },
+      {
+        id:9,
+        image: faker.image.image(),
+        text: faker.lorem.text(),
+        n_likes: 0,
+        n_coments: 0,
+        createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
+        updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
+      },
+      {
+        id:10,
+        image: faker.image.image(),
+        text: faker.lorem.text(),
+        n_likes: 0,
+        n_coments: 0,
+        createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
+        updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
+      },
+      {
+        id:11,
+        image: faker.image.image(),
+        text: faker.lorem.text(),
+        n_likes: 0,
+        n_coments: 0,
+        createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
+        updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
+      },
+      {
+        id:12,
+        image: faker.image.image(),
+        text: faker.lorem.text(),
+        n_likes: 0,
+        n_coments: 0,
+        createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
+        updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
+      },
+      {
+        id:13,
+        image: faker.image.image(),
+        text: faker.lorem.text(),
+        n_likes: 0,
+        n_coments: 0,
+        createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
+        updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
+      },
+      {
+        id:14,
+        image: faker.image.image(),
+        text: faker.lorem.text(),
+        n_likes: 0,
+        n_coments: 0,
+        createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
+        updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
+      },
+      {
+        id:15,
+        image: faker.image.image(),
+        text: faker.lorem.text(),
+        n_likes: 0,
+        n_coments: 0,
+        createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
+        updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
+      },
+      {
+        id:16,
+        image: faker.image.image(),
+        text: faker.lorem.text(),
+        n_likes: 0,
+        n_coments: 0,
+        createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
+        updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
+      },
+      {
+        id:17,
+        image: faker.image.image(),
+        text: faker.lorem.text(),
+        n_likes: 0,
+        n_coments: 0,
+        createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
+        updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
+      },
+      {
+        id:18,
+        image: faker.image.image(),
+        text: faker.lorem.text(),
+        n_likes: 0,
+        n_coments: 0,
+        createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
+        updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
+      },
+      {
+        id:19,
+        image: faker.image.image(),
+        text: faker.lorem.text(),
+        n_likes: 0,
+        n_coments: 0,
+        createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
+        updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
+      },
+      {
+        id:20,
+        image: faker.image.image(),
+        text: faker.lorem.text(),
+        n_likes: 0,
+        n_coments: 0,
+        createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
+        updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
+      },
+      {
+        id:21,
+        image: faker.image.image(),
+        text: faker.lorem.text(),
+        n_likes: 0,
+        n_coments: 0,
+        createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
+        updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
+      },
+      {
+        id:22,
+        image: faker.image.image(),
+        text: faker.lorem.text(),
+        n_likes: 0,
+        n_coments: 0,
+        createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
+        updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
+      }
+    ], {});
   },
-
+  
   down: (queryInterface, Sequelize) => {
-     return queryInterface.bulkDelete('posts', null, {});
+    return queryInterface.bulkDelete('posts', null, {});
   }
 };
