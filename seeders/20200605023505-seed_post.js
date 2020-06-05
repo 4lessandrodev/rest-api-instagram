@@ -10,8 +10,8 @@ module.exports = {
         id:1,
         image: faker.image.image(),
         text: faker.lorem.text(),
-        n_likes: 0,
-        n_coments: 0,
+        n_likes: 1,
+        n_coments: 7,
         createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
@@ -20,7 +20,7 @@ module.exports = {
         image: faker.image.image(),
         text: faker.lorem.text(),
         n_likes: 0,
-        n_coments: 0,
+        n_coments: 5,
         createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
@@ -29,7 +29,7 @@ module.exports = {
         image: faker.image.image(),
         text: faker.lorem.text(),
         n_likes: 0,
-        n_coments: 0,
+        n_coments: 3,
         createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
@@ -38,7 +38,7 @@ module.exports = {
         image: faker.image.image(),
         text: faker.lorem.text(),
         n_likes: 0,
-        n_coments: 0,
+        n_coments: 5,
         createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
@@ -47,7 +47,7 @@ module.exports = {
         image: faker.image.image(),
         text: faker.lorem.text(),
         n_likes: 0,
-        n_coments: 0,
+        n_coments: 5,
         createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
@@ -56,7 +56,7 @@ module.exports = {
         image: faker.image.image(),
         text: faker.lorem.text(),
         n_likes: 0,
-        n_coments: 0,
+        n_coments: 3,
         createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
@@ -65,7 +65,7 @@ module.exports = {
         image: faker.image.image(),
         text: faker.lorem.text(),
         n_likes: 0,
-        n_coments: 0,
+        n_coments: 5,
         createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
@@ -74,7 +74,7 @@ module.exports = {
         image: faker.image.image(),
         text: faker.lorem.text(),
         n_likes: 0,
-        n_coments: 0,
+        n_coments: 7,
         createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
@@ -83,7 +83,7 @@ module.exports = {
         image: faker.image.image(),
         text: faker.lorem.text(),
         n_likes: 0,
-        n_coments: 0,
+        n_coments: 3,
         createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
@@ -92,7 +92,7 @@ module.exports = {
         image: faker.image.image(),
         text: faker.lorem.text(),
         n_likes: 0,
-        n_coments: 0,
+        n_coments: 2,
         createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
@@ -101,7 +101,7 @@ module.exports = {
         image: faker.image.image(),
         text: faker.lorem.text(),
         n_likes: 0,
-        n_coments: 0,
+        n_coments: 4,
         createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
@@ -110,7 +110,7 @@ module.exports = {
         image: faker.image.image(),
         text: faker.lorem.text(),
         n_likes: 0,
-        n_coments: 0,
+        n_coments: 1,
         createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
@@ -119,7 +119,7 @@ module.exports = {
         image: faker.image.image(),
         text: faker.lorem.text(),
         n_likes: 0,
-        n_coments: 0,
+        n_coments: 2,
         createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
@@ -128,7 +128,7 @@ module.exports = {
         image: faker.image.image(),
         text: faker.lorem.text(),
         n_likes: 0,
-        n_coments: 0,
+        n_coments: 5,
         createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
@@ -137,7 +137,7 @@ module.exports = {
         image: faker.image.image(),
         text: faker.lorem.text(),
         n_likes: 0,
-        n_coments: 0,
+        n_coments: 7,
         createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
@@ -146,7 +146,7 @@ module.exports = {
         image: faker.image.image(),
         text: faker.lorem.text(),
         n_likes: 0,
-        n_coments: 0,
+        n_coments: 3,
         createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
@@ -155,7 +155,7 @@ module.exports = {
         image: faker.image.image(),
         text: faker.lorem.text(),
         n_likes: 0,
-        n_coments: 0,
+        n_coments: 4,
         createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
@@ -164,7 +164,7 @@ module.exports = {
         image: faker.image.image(),
         text: faker.lorem.text(),
         n_likes: 0,
-        n_coments: 0,
+        n_coments: 2,
         createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
@@ -173,7 +173,7 @@ module.exports = {
         image: faker.image.image(),
         text: faker.lorem.text(),
         n_likes: 0,
-        n_coments: 0,
+        n_coments: 3,
         createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
@@ -182,7 +182,7 @@ module.exports = {
         image: faker.image.image(),
         text: faker.lorem.text(),
         n_likes: 0,
-        n_coments: 0,
+        n_coments: 1,
         createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
@@ -191,7 +191,7 @@ module.exports = {
         image: faker.image.image(),
         text: faker.lorem.text(),
         n_likes: 0,
-        n_coments: 0,
+        n_coments: 3,
         createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
@@ -200,7 +200,7 @@ module.exports = {
         image: faker.image.image(),
         text: faker.lorem.text(),
         n_likes: 0,
-        n_coments: 0,
+        n_coments: 2,
         createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       }
