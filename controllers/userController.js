@@ -7,17 +7,14 @@ module.exports = {
     save: async (req, res) => {
         try {
             let { email, password, name, avatar } = req.body;
-            console.log(req.body);
             const result = await User.create({
                 email, password, name, avatar
             });
             res.status(200).json({ result });
         } catch (error) {
-            console.log(error);
             res.status(401).json({ error });
         }
     },
-    
     
     //-------------------------------------------------------
     edit: async (req, res) => {
@@ -44,6 +41,22 @@ module.exports = {
                     where: { id }
                 });
                 res.status(200).json({ result });
+            } catch (error) {
+                res.status(401).json({ error });
+            }
+        },
+        
+        //-------------------------------------------------------
+        list: async (req, res) => {
+            try {
+                let users;
+                let { limit } = req.query.limit;
+                if (limit) {
+                    users = await User.findAll({ limit });
+                } else {
+                    users = await User.findAll();
+                }
+                res.status(200).json({ users });
             } catch (error) {
                 res.status(401).json({ error });
             }
