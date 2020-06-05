@@ -30,7 +30,7 @@
 ✔ Criar migrations @done (04/06/2020 22:52:38)
 ☐ Criar seeders
 
-☐ Criar rota pública para salvar um novo usuário
+✔ Criar rota pública para salvar um novo usuário @done (04/06/2020 22:57:45)
 ✔ Criar método editar usuário @done (04/06/2020 22:53:56)
 ✔ Criar método excluir usuário @done (04/06/2020 22:54:28)
 ☐ Criar método listar todos os usuários usuários, aceitando limite como query (?limit=?)
