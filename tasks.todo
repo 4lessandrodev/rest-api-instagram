@@ -1,0 +1,87 @@
+# Markdown Todo
+✔ Criar projeto padrão com express-generator @done (04/06/2020 22:34:25)
+✔ instalar as dependências @done (04/06/2020 22:34:54)
+✔ instalar sequelize @done (04/06/2020 22:39:35)
+- npm install express mysql2 sequelize dotenv
+- npm install nodemon sequelize-cli -D
+
+✔ Configurar variáveis .env @done (04/06/2020 22:39:55)
+✔ Configurar sequelize @done (04/06/2020 22:42:47)
+- .sequelizerc
+- npx sequelize init:model
+
+✔ Criar banco de dados @done (04/06/2020 22:45:26)
+- tabela users
+- tabela coments 
+- tabela likes
+- tabela posts
+
+✔ Criar models @done (04/06/2020 22:48:32)
+- instalar mysql2 -g (global)
+- instalar sequelize-auto-v2 -g (global)
+- Utilizar o sequelize-auto para gerar as models direto do banco de dados
+- sequelize-auto -o "./models" -d nomeDoShema -h localhost -u usuarioDaConexao -p 3306 -x senhaDaConexao -e mysql
+- Em windows pode ocorrer erro de autorização (executar o comando: Set-ExecutionPolicy RemoteSigned) utilizar powershell como admin
+
+✔ Ajustar model @done (04/06/2020 22:52:15)
+- Singular
+- Capitalize
+
+✔ Criar migrations @done (04/06/2020 22:52:38)
+☐ Criar seeders
+
+☐ Criar rota pública para salvar um novo usuário
+✔ Criar método editar usuário @done (04/06/2020 22:53:56)
+✔ Criar método excluir usuário @done (04/06/2020 22:54:28)
+☐ Criar método listar todos os usuários usuários, aceitando limite como query (?limit=?)
+☐ Criar método buscar usuário por nome 
+☐ Criar método buscar usuário por id
+☐ Criar comentController
+☐ Criar método listar comentários, aceitando limite como query (?limit=?)
+☐ Criar método salvar comentários
+☐ Criar método excluir comentário por id
+☐ Criar método editar comentário por id 
+☐ Criar relacionamento de comentário com usuário e postagem
+☐ Criar postController
+☐ Criar método salvar postagem
+☐ Criar método listar postagem, aceitando limite como query (?limit=?) 
+- Include de comentários
+- Include de usuário que comentou
+- Include de usuário que realizou a postagem
+☐ Criar método buscar postagem por id 
+☐ Criar método editar postagem por id
+☐ Criar método excluir postagem por id
+☐ Criar método salvar like
+☐ Criar método excluir like
+
+- Implementar validações
+☐ Validar dados obrigatórios para salvar usuários
+- nome
+- email
+- senha
+
+☐ Validar dados obrigatórios para salvar postagem 
+- imagem 
+
+☐ Validar dados obrigatórios para salvar comentário
+- texto
+- id da postagem
+
+☐ Implementar upload de imagem (multer)
+- ao salvar/editar usuário 
+- ao salvar/editar uma postagem 
+
+☐ Ao editar a imagem de um usuário validar se o mesmo já possui uma imagem no servidor e apagá-la para salvar a nova
+☐ Ao editar uma imagem da postagem apagar a anterior
+
+☐ Implementar cors
+☐ Implementar jwt
+- Criar uma chave hash para o token em .env
+- Ao salvar um usuário gerar um token 
+- Definir validade do token de 2 dias
+- Solicitar que o cliente envie o token via header para validar acesso
+- Criar middleware para autenticar as rotas 
+- Para validar o login solicitar que o cliente passe os dados (email e senha) de forma criptografada no headers
+
+☐ Implementar express-brute para bloquear cyber ataques de ping à api
+☐ Implementar helmet para ocultar a tecnologia utilizada (cabeçalho enviado para o cliente)
