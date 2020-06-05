@@ -1,5 +1,6 @@
 const { User } = require('../models');
-
+const sequelize = require('sequelize');
+const Op = sequelize.Op;
 
 module.exports = {
     
@@ -57,6 +58,23 @@ module.exports = {
                     users = await User.findAll();
                 }
                 res.status(200).json({ users });
+            } catch (error) {
+                res.status(401).json({ error });
+            }
+        },
+        
+        //-------------------------------------------------------
+        findByName: async (req, res) => {
+            try {
+                let name = req.params.name;
+                let user = await User.findOne({
+                    where: {
+                        name: {
+                        [Op.like]: `'%${name}%'`
+                        }
+                    }
+                });
+                res.status(200).json({ user });
             } catch (error) {
                 res.status(401).json({ error });
             }

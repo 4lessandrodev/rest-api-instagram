@@ -16,4 +16,7 @@ router.delete('/delete/:id', userController.delete);
 //localhost:3000/users/list?limit=10
 router.get('/list', userController.list);
 
+//localhost:3000/users/Jane
+router.get('/list/:name', userController.findByName);
+
 module.exports = router;

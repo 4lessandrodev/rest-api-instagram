@@ -33,8 +33,8 @@
 ✔ Criar rota pública para salvar um novo usuário @done (04/06/2020 22:57:45)
 ✔ Criar método editar usuário @done (04/06/2020 22:53:56)
 ✔ Criar método excluir usuário @done (04/06/2020 22:54:28)
-☐ Criar método listar todos os usuários usuários, aceitando limite como query (?limit=?)
-☐ Criar método buscar usuário por nome 
+✔ Criar método listar todos os usuários usuários, aceitando limite como query (?limit=?) @done (04/06/2020 23:16:59)
+✔ Criar método buscar usuário por nome @done (04/06/2020 23:27:25)
 ☐ Criar método buscar usuário por id
 ☐ Criar comentController
 ☐ Criar método listar comentários, aceitando limite como query (?limit=?)
