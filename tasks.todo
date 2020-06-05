@@ -35,7 +35,7 @@
 ✔ Criar rota pública para salvar um novo usuário @done (04/06/2020 22:57:45)
 ✔ Criar método editar usuário @done (04/06/2020 22:53:56)
 ✔ Criar método excluir usuário @done (04/06/2020 22:54:28)
-✔ Criar método listar todos os usuários usuários, aceitando limite como query (?limit=?) @done (04/06/2020 23:16:59)
+✔ Criar método listar todos os usuários, aceitando limite como query (?limit=?) @done (04/06/2020 23:16:59)
 ✔ Criar método buscar usuário por nome @done (04/06/2020 23:27:25)
 ☐ Criar método buscar usuário por id
 ☐ Criar comentController
@@ -61,6 +61,8 @@
 - Criar model 
 - Criar migration
 - Criar seeder
+
+☐ Refatorar a listagem de postagens (listar apenas postagens de quem o usuário é seguidor)
 
 - Implementar validações
 ☐ Validar dados obrigatórios para salvar usuários
