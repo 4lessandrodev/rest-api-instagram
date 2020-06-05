@@ -28,7 +28,7 @@
 - Capitalize
 
 ✔ Criar migrations @done (04/06/2020 22:52:38)
-☐ Criar seeders
+✔ Criar seeders @done (05/06/2020 00:47:14)
 - faker (npm gera dados randômicos)
 - moment (npm formata datas)
 
@@ -55,6 +55,12 @@
 ☐ Criar método excluir postagem por id
 ☐ Criar método salvar like
 ☐ Criar método excluir like
+
+☐ Implementar followers
+- Criar tabela no banco de dados 
+- Criar model 
+- Criar migration
+- Criar seeder
 
 - Implementar validações
 ☐ Validar dados obrigatórios para salvar usuários
