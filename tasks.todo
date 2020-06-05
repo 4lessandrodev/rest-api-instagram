@@ -29,6 +29,8 @@
 
 ✔ Criar migrations @done (04/06/2020 22:52:38)
 ☐ Criar seeders
+- faker (npm gera dados randômicos)
+- moment (npm formata datas)
 
 ✔ Criar rota pública para salvar um novo usuário @done (04/06/2020 22:57:45)
 ✔ Criar método editar usuário @done (04/06/2020 22:53:56)
