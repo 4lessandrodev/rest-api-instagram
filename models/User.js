@@ -26,7 +26,7 @@ module.exports = function(sequelize, DataTypes) {
       comment: "null"
     },
     'avatar': {
-      type: DataTypes.STRING(80),
+      type: DataTypes.STRING(255),
       allowNull: false,
       defaultValue: 'avatar.png',
       comment: "null"

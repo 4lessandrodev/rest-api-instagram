@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true
     },
     'image': {
-      type: DataTypes.STRING(80),
+      type: DataTypes.STRING(255),
       allowNull: true,
       comment: "null"
     },

@@ -27,7 +27,7 @@ module.exports = {
           comment: "null"
         },
         avatar: {
-          type: Sequelize.STRING(80),
+          type: Sequelize.STRING(255),
           allowNull: false,
           defaultValue: 'avatar.png',
           comment: "null"
