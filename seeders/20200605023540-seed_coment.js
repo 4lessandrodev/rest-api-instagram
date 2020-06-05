@@ -215,7 +215,7 @@ module.exports = {
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
       {
-        id: 26,
+        id: 27,
         text: faker.lorem.text(),
         usersId: 3,
         postsId: 17,
@@ -223,7 +223,7 @@ module.exports = {
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
       {
-        id: 27,
+        id: 28,
         text: faker.lorem.text(),
         usersId: 6,
         postsId: 18,
@@ -231,7 +231,7 @@ module.exports = {
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
        {
-        id: 28,
+        id: 29,
         text: faker.lorem.text(),
         usersId: 4,
         postsId: 19,
@@ -239,7 +239,7 @@ module.exports = {
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
       {
-        id: 29,
+        id: 30,
         text: faker.lorem.text(),
         usersId: 3,
         postsId: 20,
@@ -247,7 +247,7 @@ module.exports = {
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
       {
-        id: 30,
+        id: 31,
         text: faker.lorem.text(),
         usersId: 8,
         postsId: 21,
@@ -255,7 +255,7 @@ module.exports = {
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
       {
-        id: 31,
+        id: 32,
         text: faker.lorem.text(),
         usersId: 11,
         postsId: 1,
@@ -263,7 +263,7 @@ module.exports = {
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
       {
-        id: 32,
+        id: 33,
         text: faker.lorem.text(),
         usersId: 10,
         postsId: 1,
@@ -271,7 +271,7 @@ module.exports = {
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
       {
-        id: 33,
+        id: 34,
         text: faker.lorem.text(),
         usersId: 9,
         postsId: 2,
@@ -279,18 +279,10 @@ module.exports = {
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
        {
-        id: 34,
+        id: 35,
         text: faker.lorem.text(),
         usersId: 8,
         postsId: 3,
-        createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
-        updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
-      },
-       {
-        id: 35,
-        text: faker.lorem.text(),
-        usersId: 7,
-        postsId: 4,
         createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
@@ -305,8 +297,8 @@ module.exports = {
        {
         id: 37,
         text: faker.lorem.text(),
-        usersId: 6,
-        postsId: 5,
+        usersId: 7,
+        postsId: 4,
         createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
@@ -318,8 +310,16 @@ module.exports = {
         createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
-      {
+       {
         id: 39,
+        text: faker.lorem.text(),
+        usersId: 6,
+        postsId: 5,
+        createdAt: moment(date).format('YYYY-MM-DD hh:mm:ss'),
+        updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
+      },
+      {
+        id: 40,
         text: faker.lorem.text(),
         usersId: 7,
         postsId: 21,
@@ -327,7 +327,7 @@ module.exports = {
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
        {
-        id: 40,
+        id: 41,
         text: faker.lorem.text(),
         usersId: 11,
         postsId: 18,
@@ -335,7 +335,7 @@ module.exports = {
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
        {
-        id: 41,
+        id: 42,
         text: faker.lorem.text(),
         usersId: 8,
         postsId: 20,
@@ -343,7 +343,7 @@ module.exports = {
         updatedAt: moment(date).format('YYYY-MM-DD hh:mm:ss')
       },
       {
-        id: 42,
+        id: 43,
         text: faker.lorem.text(),
         usersId: 9,
         postsId: 17,
