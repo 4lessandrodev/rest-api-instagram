@@ -12,7 +12,7 @@ router.put('/edit/:id', userController.edit);
 //localhost:3000/users/delete/1
 router.delete('/delete/:id', userController.delete);
 
-//localhost:3000/users/list?limit=10
+//localhost:3000/users/list?limit=10&page=1
 router.get('/list', userController.list);
 
 //localhost:3000/users/list/Jane
