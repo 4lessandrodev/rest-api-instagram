@@ -38,8 +38,8 @@
 ✔ Criar método listar todos os usuários, aceitando limite como query (?limit=?) @done (04/06/2020 23:16:59)
 ✔ Criar método buscar usuário por nome @done (04/06/2020 23:27:25)
 ✔ Criar método buscar usuário por id @done(20-06-05 22:49)
-☐ Criar comentController
-☐ Criar método listar comentários, aceitando limite como query (?limit=?)
+✔ Criar comentController @done (05/06/2020 23:15:01)
+✔ Criar método listar comentários, aceitando limite como query (?limit=?) @done (05/06/2020 23:15:03)
 ☐ Criar método salvar comentários
 ☐ Criar método excluir comentário por id
 ☐ Criar método editar comentário por id 
