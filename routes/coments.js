@@ -3,7 +3,7 @@ var router = express.Router();
 var comentController = require('../controllers/comentController');
 
 //PRIVATE ROUTES
-//localhost:3000/coments/list/1?limit=5
+//localhost:3000/coments/list/1?limit=5&page=1
 router.get('/list/:postsId', comentController.list);
 
 

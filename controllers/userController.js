@@ -6,14 +6,14 @@ module.exports = {
   //-------------------------------------------------------
   save: async (req, res) => {
     try {
-      let { email, password, name, avatar } = req.body;
-      const result = await User.create({
+      const { email, password, name, avatar } = req.body;
+      const user = await User.create({
         email,
         password,
         name,
         avatar,
       });
-      res.status(200).json({ result });
+      res.status(200).json({ user });
     } catch (error) {
       res.status(401).json({ error });
     }
@@ -22,9 +22,9 @@ module.exports = {
   //-------------------------------------------------------
   edit: async (req, res) => {
     try {
-      let id = req.params.id;
+      let { id } = req.params;
       let { email, password, name, avatar } = req.body;
-      let result = await User.update(
+      let user = await User.update(
         { email, password, name, avatar },
         {
           where: {
@@ -32,7 +32,7 @@ module.exports = {
           },
         }
       );
-      res.status(200).json({ result });
+      res.status(200).json({ user });
     } catch (error) {
       res.status(401).json({ error });
     }
@@ -42,10 +42,10 @@ module.exports = {
   delete: async (req, res) => {
     try {
       let id = req.params.id;
-      let result = await User.destroy({
+      let user = await User.destroy({
         where: { id },
       });
-      res.status(200).json({ result });
+      res.status(200).json({ user });
     } catch (error) {
       res.status(401).json({ error });
     }
@@ -90,7 +90,7 @@ module.exports = {
     try {
       let { id } = req.params;
       let user = await User.findByPk(id);
-      res.status(200).json(user);
+      res.status(200).json({ user });
     } catch (error) {
       res.status(401).json({ error });
     }

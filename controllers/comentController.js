@@ -2,7 +2,7 @@ const { Coment } = require('../models');
 const sequelize = require('sequelize');
 
 module.exports = {
-    // -------------------------------------
+    //-------------------------------------------------------
     list: async (req, res, next) => {
         try {
             let { limit = 5, page = 1 } = req.query;
@@ -19,6 +19,6 @@ module.exports = {
             res.status(401).json({ error });
         }
     }
-
-    // -------------------------------------
+    
+    //-------------------------------------------------------
 };
