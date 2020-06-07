@@ -36,7 +36,7 @@ module.exports = {
   },
   delete: async (req, res) => {
     try {
-      const { id } = req.body;
+      const { id } = req.params;
       const deleteComent = await Coment.destroy({
         where: {
           id
