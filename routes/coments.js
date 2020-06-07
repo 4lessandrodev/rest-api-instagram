@@ -9,4 +9,6 @@ router.get('/list/:postsId', comentController.list);
 //localhost:3000/coments/save
 router.post('/save', comentController.save);
 
+router.delete('/delete', comentController.delete)
+
 module.exports = router;
