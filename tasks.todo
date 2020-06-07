@@ -41,8 +41,8 @@
 ✔ Criar comentController @done (05/06/2020 23:15:01)
 ✔ Criar método listar comentários, aceitando limite como query (?limit=?) @done (05/06/2020 23:15:03)
 ✔ Criar método salvar comentários @done(20-06-06 22:45)
-☐ Criar método excluir comentário por id
-☐ Criar método editar comentário por id 
+✔ Criar método excluir comentário por id @done (06/06/2020 23:00:35)
+✔ Criar método editar comentário por id @done (06/06/2020 23:07:21)
 ☐ Criar relacionamento de comentário com usuário e postagem
 ☐ Criar postController
 ☐ Criar método salvar postagem

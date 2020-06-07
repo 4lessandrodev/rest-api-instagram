@@ -9,6 +9,10 @@ router.get('/list/:postsId', comentController.list);
 //localhost:3000/coments/save
 router.post('/save', comentController.save);
 
-router.delete('/delete', comentController.delete)
+//localhost:3000/coments/delete/1
+router.delete('/delete/:id', comentController.delete);
+
+//localhost:3000/coments/edit/1
+router.put('/edit/:id', comentController.edit);
 
 module.exports = router;

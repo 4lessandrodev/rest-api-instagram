@@ -19,33 +19,52 @@ module.exports = {
       res.status(401).json({ error });
     }
   },
-
+  
   //-------------------------------------------------------
   save: async (req, res) => {
     try {
       const { text, postsId, usersId } = req.body;
-      const comment = await Coment.create({
+      const coment = await Coment.create({
         text,
         postsId,
         usersId,
       });
-      res.status(200).json({ comment });
+      res.status(200).json({ coment });
     } catch (error) {
       res.status(401).json({ error });
     }
   },
+  
+  //-------------------------------------------------------
   delete: async (req, res) => {
     try {
       const { id } = req.params;
-      const deleteComent = await Coment.destroy({
+      const coment = await Coment.destroy({
         where: {
           id
         }
-      })
-      res.status(200).json(deleteComent)
-
+      });
+      res.status(200).json({ coment });
     } catch (error) {
       res.status(401).json({ error });
     }
-  }
+  },
+  
+  //-------------------------------------------------------
+  edit: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { text } = req.body;
+      const coment = await Coment.update({ text }, {
+        where: {
+          id
+        }
+      });
+      res.status(200).json({ coment });
+    } catch (error) {
+      res.status(401).json({ error });
+    }
+  },
+  
+  //-------------------------------------------------------
 };
