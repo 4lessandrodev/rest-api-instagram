@@ -6,5 +6,7 @@ var comentController = require('../controllers/comentController');
 //localhost:3000/coments/list/1?limit=5&page=1
 router.get('/list/:postsId', comentController.list);
 
+//localhost:3000/coments/save
+router.post('/save', comentController.save);
 
 module.exports = router;
