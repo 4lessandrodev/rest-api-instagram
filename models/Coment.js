@@ -38,12 +38,13 @@ module.exports = function (sequelize, DataTypes) {
     {
       tableName: 'coments',
     }
-  );
-
-  Coment.associate = (models) => {
-    Coment.belongsTo(models.Post);
-    Coment.belongsTo(models.User);
+    );
+    
+    Coment.associate = (models) => {
+      Coment.belongsTo(models.Post, { as: 'post', foreignKey:'postId'});
+      Coment.belongsTo(models.User, { as: 'user_coment', foreignKey: 'userId'});
+    };
+    
+    return Coment;
   };
-
-  return Coment;
-};
+  

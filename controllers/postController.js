@@ -1,24 +1,48 @@
-const { Posts } = require('../models');
+const { Post, Coment, User } = require('../models');
 const sequelize = require('sequelize');
 
 module.exports = {
     //-----------------------------------
     save: async (req, res) => {
-        const { image, text, userId } = req.body
         try {
-
-            const post = Posts.create({
+            const { image, text, userId } = req.body;
+            const post = await Post.create({
                 image,
                 text,
                 userId
-            })
-
-            res.status(200).json({ post })
-
+            });
+            res.status(200).json({ post });
         } catch (error) {
-            res.status(401).json({ error })
+            res.status(401).json({ error });
         }
-    }
-
+    },
+    
     //-----------------------------------
-}
+    list: async (req, res) => {
+        try {
+            let { limit = 10, page = 1 } = req.query;
+            limit = parseInt(limit);
+            page = parseInt(page - 1);
+            const { count:size, rows:posts } = await Post.findAndCountAll({
+                include: [
+                    { model: User, as:'user', attributes: ['id','name', 'avatar'] },
+                    {
+                        model: Coment, as: 'coments', attributes: ['id', 'text'],
+                        include: [
+                            {
+                                model: User, as: 'user_coment', attributes: ['id', 'name', 'avatar']
+                            }]
+                        }
+                    ],
+                    attributes: {exclude:['userId','createdAt','updatedAt']},
+                    limit,
+                    offset:limit*page
+                });
+                
+                res.status(200).json({ size, posts });
+            } catch (error) {
+                console.log(error);
+                res.status(401).json({ error }); 
+            }
+        }
+    };

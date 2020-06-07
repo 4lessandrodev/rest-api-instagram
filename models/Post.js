@@ -43,19 +43,7 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
         defaultValue: '0',
         comment: 'null',
-      },
-      createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-        comment: 'null',
-      },
-      updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-        comment: 'null',
-      },
+      }
     },
     {
       tableName: 'posts',
@@ -63,7 +51,8 @@ module.exports = function (sequelize, DataTypes) {
   );
 
   Post.associate = (models) => {
-    Post.hasMany(models.Coment);
+    Post.hasMany(models.Coment, { as: 'coments', foreignKey: 'postId'});
+    Post.belongsTo(models.User, { as:'user', foreignKey: 'userId'});
   };
 
   return Post;

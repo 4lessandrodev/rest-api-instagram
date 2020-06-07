@@ -32,28 +32,18 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
         defaultValue: 'avatar.png',
         comment: 'null',
-      },
-      createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-        comment: 'null',
-      },
-      updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-        comment: 'null',
-      },
+      }
     },
     {
       tableName: 'users',
     }
-  );
-
-  User.associate = (models) => {
-    User.hasMany(models.Coment);
+    );
+    
+    User.associate = (models) => {
+      User.hasMany(models.Coment, { as: 'coments', foreignKey: 'postId' });
+      User.hasMany(models.Post, { as: 'posts', foreignKey: 'userId'});
+    };
+    
+    return User;
   };
-
-  return User;
-};
+  

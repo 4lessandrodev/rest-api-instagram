@@ -44,9 +44,9 @@
 ✔ Criar método excluir comentário por id @done (06/06/2020 23:00:35)
 ✔ Criar método editar comentário por id @done (06/06/2020 23:07:21)
 ✔ Criar relacionamento de comentário com usuário e postagem @done(20-06-06 23:38)
-☐ Criar postController
-☐ Criar método salvar postagem
-☐ Criar método listar postagem, aceitando limite como query (?limit=?) 
+✔ Criar postController @done (06/06/2020 23:53:46)
+✔ Criar método salvar postagem @done (06/06/2020 23:53:47)
+✔ Criar método listar postagem, aceitando limite como query (?limit=?) @done (07/06/2020 00:54:49)
 - Include de comentários
 - Include de usuário que comentou
 - Include de usuário que realizou a postagem
