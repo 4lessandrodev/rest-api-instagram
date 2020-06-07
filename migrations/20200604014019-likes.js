@@ -3,29 +3,28 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('likes', {
-      usersId: {
+      userId: {
         type: Sequelize.INTEGER(11),
         allowNull: false,
-        comment: "null",
+        comment: 'null',
         references: {
           model: 'users',
-          key: 'id'
-        }
+          key: 'id',
+        },
       },
-      postsId: {
+      postId: {
         type: Sequelize.INTEGER(11),
         allowNull: false,
-        comment: "null",
+        comment: 'null',
         references: {
           model: 'posts',
-          key: 'id'
-        }
-      }
+          key: 'id',
+        },
+      },
     });
   },
 
   down: (queryInterface, Sequelize) => {
-      return queryInterface.dropTable('likes');
-    
-  }
+    return queryInterface.dropTable('likes');
+  },
 };

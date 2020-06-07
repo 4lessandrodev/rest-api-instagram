@@ -43,7 +43,7 @@
 ✔ Criar método salvar comentários @done(20-06-06 22:45)
 ✔ Criar método excluir comentário por id @done (06/06/2020 23:00:35)
 ✔ Criar método editar comentário por id @done (06/06/2020 23:07:21)
-☐ Criar relacionamento de comentário com usuário e postagem
+✔ Criar relacionamento de comentário com usuário e postagem @done(20-06-06 23:38)
 ☐ Criar postController
 ☐ Criar método salvar postagem
 ☐ Criar método listar postagem, aceitando limite como query (?limit=?) 

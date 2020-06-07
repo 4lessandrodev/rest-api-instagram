@@ -2,19 +2,23 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('likes', [
-      {
-          usersId: 1,
-          postsId: 1
-      },
-      {
-          usersId: 1,
-          postsId: 2
-      }
-    ], {});
+    return queryInterface.bulkInsert(
+      'likes',
+      [
+        {
+          userId: 1,
+          postId: 1,
+        },
+        {
+          userId: 1,
+          postId: 2,
+        },
+      ],
+      {}
+    );
   },
 
   down: (queryInterface, Sequelize) => {
-     return queryInterface.bulkDelete('likes', null, {});
-  }
+    return queryInterface.bulkDelete('likes', null, {});
+  },
 };

@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function (sequelize, DataTypes) {
-  return sequelize.define(
+  const Coment = sequelize.define(
     'Coment',
     {
       id: {
@@ -16,7 +16,7 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
         comment: 'null',
       },
-      usersId: {
+      userId: {
         type: DataTypes.INTEGER(11),
         allowNull: false,
         comment: 'null',
@@ -25,7 +25,7 @@ module.exports = function (sequelize, DataTypes) {
           key: 'id',
         },
       },
-      postsId: {
+      postId: {
         type: DataTypes.INTEGER(11),
         allowNull: false,
         comment: 'null',
@@ -39,4 +39,11 @@ module.exports = function (sequelize, DataTypes) {
       tableName: 'coments',
     }
   );
+
+  Coment.associate = (models) => {
+    Coment.belongsTo(models.Post);
+    Coment.belongsTo(models.User);
+  };
+
+  return Coment;
 };

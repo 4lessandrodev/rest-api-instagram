@@ -3,56 +3,56 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('coments', {
-      'id': {
+      id: {
         type: Sequelize.INTEGER(11),
         allowNull: false,
         primaryKey: true,
-        comment: "null",
-        autoIncrement: true
+        comment: 'null',
+        autoIncrement: true,
       },
-      'text': {
+      text: {
         type: Sequelize.STRING(255),
         allowNull: false,
-        comment: "null"
+        comment: 'null',
       },
-      'usersId': {
+      userId: {
         type: Sequelize.INTEGER(11),
         allowNull: false,
-        comment: "null",
+        comment: 'null',
         references: {
           model: 'users',
-          key: 'id'
+          key: 'id',
         },
         onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        onDelete: 'CASCADE',
       },
-      'postsId': {
+      postId: {
         type: Sequelize.INTEGER(11),
         allowNull: false,
-        comment: "null",
+        comment: 'null',
         references: {
           model: 'posts',
-          key: 'id'
+          key: 'id',
         },
         onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        onDelete: 'CASCADE',
       },
-      'createdAt': {
+      createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-        comment: "null"
+        comment: 'null',
       },
-      'updatedAt': {
+      updatedAt: {
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-        comment: "null"
-      }
+        comment: 'null',
+      },
     });
   },
 
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('coments');
-  }
+  },
 };

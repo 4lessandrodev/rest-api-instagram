@@ -7,48 +7,58 @@ module.exports = {
         type: Sequelize.INTEGER(11),
         allowNull: false,
         primaryKey: true,
-        comment: "null",
-        autoIncrement: true
+        comment: 'null',
+        autoIncrement: true,
+      },
+      userId: {
+        type: Sequelize.INTEGER(11),
+        allowNull: false,
+        comment: 'null',
+        references: {
+          model: 'users',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       image: {
         type: Sequelize.STRING(255),
         allowNull: false,
-        comment: "null"
+        comment: 'null',
       },
       text: {
         type: Sequelize.STRING(250),
         allowNull: true,
-        comment: "null"
+        comment: 'null',
       },
       n_likes: {
         type: Sequelize.INTEGER(11),
         allowNull: false,
         defaultValue: '0',
-        comment: "null"
+        comment: 'null',
       },
       n_coments: {
         type: Sequelize.INTEGER(11),
         allowNull: false,
         defaultValue: '0',
-        comment: "null"
+        comment: 'null',
       },
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-        comment: "null"
+        comment: 'null',
       },
       updatedAt: {
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-        comment: "null"
-      }
+        comment: 'null',
+      },
     });
   },
 
   down: (queryInterface, Sequelize) => {
-
     return queryInterface.dropTable('posts');
-  }
+  },
 };
