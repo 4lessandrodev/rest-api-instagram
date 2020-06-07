@@ -34,4 +34,18 @@ module.exports = {
       res.status(401).json({ error });
     }
   },
+  delete: async (req, res) => {
+    try {
+      const { id } = req.body;
+      const deleteComent = await Coment.destroy({
+        where: {
+          id
+        }
+      })
+      res.status(200).json(deleteComent)
+
+    } catch (error) {
+      res.status(401).json({ error });
+    }
+  }
 };
