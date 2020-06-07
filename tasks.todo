@@ -53,8 +53,8 @@
 ☐ Criar método buscar postagem por id 
 ☐ Criar método editar postagem por id
 ☐ Criar método excluir postagem por id
-☐ Criar método salvar like
-☐ Criar método excluir like
+☐ Criar método salvar/excluir like
+- Verificar se o usuário que está curtindo já possuim um like (Se sim -> unlike)
 
 ☐ Implementar followers
 - Criar tabela no banco de dados 
