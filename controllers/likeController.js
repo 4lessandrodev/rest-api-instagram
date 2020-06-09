@@ -1,31 +1,35 @@
 const { Like } = require('../models');
 
 module.exports = {
-    save: async (req, res) => {
+    saveOrDelete: async (req, res) => {
         try {
-            const { postId } = req.params
-            const userId = 1
+            let like;
+            const { postId } = req.params;
+            //Substituir pelo id do usuário no token
+            const userId = await Math.ceil(Math.random() * 10);
             
-            const like = await Like.findOne({
+            let result = await Like.findOne({
                 where: {
                     userId, postId
-                }
-            })
-            let result
-            if(like){
-                result = await Like.create({ userId, postId })
+                },
+                attributes: ['userId', 'postId']
+            });
+
+            if (result == null) {
+                like = await Like.create({ userId, postId });
             }
             else {
-                result = await Like.destroy({
+                like = await Like.destroy({
                     where: {
                         userId, postId
                     }
-                }) 
+                });
             }
-            res.status(200).json({ result })
+
+            res.status(200).json({ like });
 
         } catch (error) {
-            res.status(401).json({ error })
+            res.status(401).json({ error });
         }
     }
-}
+};

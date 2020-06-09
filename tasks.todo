@@ -53,7 +53,7 @@
 ✔ Criar método buscar postagem por id @done (08/06/2020 22:22:36)
 ✔ Criar método editar postagem por id @done (08/06/2020 22:28:24)
 ✔ Criar método excluir postagem por id @done (08/06/2020 22:57:12)
-☐ Criar método salvar/excluir like
+✔ Criar método salvar/excluir like @done (08/06/2020 23:19:17)
 - Verificar se o usuário que está curtindo já possuim um like (Se sim -> unlike)
 
 ☐ Implementar followers

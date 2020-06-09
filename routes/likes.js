@@ -3,5 +3,7 @@ var router = express.Router();
 var likeController = require('../controllers/likeController');
 
 //PRIVATE ROUTES
-//localhost:3000/like/save
-router.post('/save', likeController.save);
+//localhost:3000/likes/like/1
+router.post('/like/:postId', likeController.saveOrDelete);
+
+module.exports = router;

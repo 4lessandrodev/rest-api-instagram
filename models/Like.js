@@ -2,7 +2,14 @@
 
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('Like', {
-    'usersId': {
+    id: {
+      type: DataTypes.INTEGER(11),
+      allowNull: false,
+      primaryKey: true,
+      comment: 'null',
+      autoIncrement: true,
+    },
+    userId: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       comment: "null",
@@ -13,7 +20,7 @@ module.exports = function(sequelize, DataTypes) {
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
     },
-    'postsId': {
+    postId: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       comment: "null",

@@ -6,12 +6,24 @@ module.exports = {
       'likes',
       [
         {
+          id: 1,
           userId: 1,
           postId: 1,
         },
         {
+          id: 2,
           userId: 1,
           postId: 2,
+        },
+        {
+          id: 3,
+          userId: 1,
+          postId: 3,
+        },
+        {
+          id: 4,
+          userId: 1,
+          postId: 4,
         },
       ],
       {}

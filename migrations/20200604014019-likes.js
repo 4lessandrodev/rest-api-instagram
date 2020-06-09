@@ -3,6 +3,13 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('likes', {
+      id: {
+        type: Sequelize.INTEGER(11),
+        allowNull: false,
+        primaryKey: true,
+        comment: 'null',
+        autoIncrement: true,
+      },
       userId: {
         type: Sequelize.INTEGER(11),
         allowNull: false,

@@ -8,7 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var comentsRouter = require('./routes/coments');
 var postsRouter = require('./routes/posts');
-var likesRouter = require('./routes/likes')
+var likesRouter = require('./routes/likes');
 
 var app = express();
 
