@@ -46,11 +46,9 @@ module.exports = {
         },
     // --------------------------------------------------
     findById: async (req, res) => {
-        const  { id } = req.params
+        const { id } = req.params
         try {
-            const post = await Post.findByPk({
-                id
-            },{
+            const post = await Post.findByPk(id ,{
                 include: [
                     { model: User, as:'user', attributes: ['id','name', 'avatar'] },
                     {
