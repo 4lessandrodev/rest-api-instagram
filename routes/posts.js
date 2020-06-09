@@ -12,5 +12,8 @@ router.get('/list', postController.list);
 //localhost:3000/posts/find/1
 router.get('/find/:id', postController.findById)
 
+//localhost:3000/posts/edit/1
+router.post('/edit/:id', postController.edit)
+
 
 module.exports = router;

@@ -66,5 +66,19 @@ module.exports = {
             } catch (error) {
                 res.status(401).json({ error }); 
             }
+        },
+    edit: async (req, res) => {
+        try {
+            const { id } = req.params
+            const { text } = req.body
+            const post = await Post.update(
+                { text }, {
+                    where: id
+                })
+            res.status(200).json({ post })
+
+        } catch (error) {
+            res.status(401).json({ error})
         }
+    }
     }
