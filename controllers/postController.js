@@ -49,6 +49,7 @@ module.exports = {
             });
                 
             res.status(200).json({ size, posts });
+            
         } catch (error) {
             res.status(401).json({ error });
         }

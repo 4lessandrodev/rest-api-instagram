@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function (sequelize, DataTypes) {
-  return sequelize.define('Follower', {
+  let Follower = sequelize.define('Follower', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -35,4 +35,11 @@ module.exports = function (sequelize, DataTypes) {
       tableName: 'followers',
       timestamps: false
   });
+
+  Follower.assciate = (models) => {
+    Follower.belongsTo(models.User, {foreignKey:'userId', as:'user_followed'});
+    Follower.belongsTo(models.User, {foreignKey:'followerId', as:'follower'});
+  };
+
+  return Follower;
 };

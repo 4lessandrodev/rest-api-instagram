@@ -66,7 +66,7 @@
 ✔ Criar controller e método (follow and unfollow) @done (12/06/2020 15:02:22)
 - Se o usuário já for seguidor deixar de seguir, caso contrário seguir
 ☐ Criar método listar seguidores
-☐ Criar método listar quem o usuário está seguindo (identificar se o seguido está seguindo o usuário de volta)
+☐ Criar método listar quem o usuário está seguindo 
 
 ☐ Aplicar controle de acesso
 - Apenas o usuário que criou uma postagem pode editar e deletar a mesma
