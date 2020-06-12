@@ -9,21 +9,15 @@ module.exports = {
             const userId = await Math.ceil(Math.random() * 10);
             
             let result = await Like.findOne({
-                where: {
-                    userId, postId
-                },
-                attributes: ['userId', 'postId']
+                where: { userId, postId }
             });
 
+            
             if (result == null) {
                 like = await Like.create({ userId, postId });
             }
             else {
-                like = await Like.destroy({
-                    where: {
-                        userId, postId
-                    }
-                });
+                like = await Like.destroy({ where:result.dataValues });
             }
 
             res.status(200).json({ like });
