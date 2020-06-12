@@ -68,6 +68,18 @@
 ✔ Criar método listar seguidores @done (12/06/2020 16:06:55)
 ✔ Criar método listar quem o usuário está seguindo @done (12/06/2020 16:06:57)
 
+☐ Implementar troca de mensagens
+- Criar tabela no banco de dados 
+- Criar model 
+- Criar migration
+- Criar seeder
+
+☐ Implementar notificações
+- Criar tabela no banco de dados 
+- Criar model 
+- Criar migration
+- Criar seeder
+
 ☐ Aplicar controle de acesso
 - Apenas o usuário que criou uma postagem pode editar e deletar a mesma
 - Apenas o usuário que criou o seu cadastro pode editar e excluir o mesmo
