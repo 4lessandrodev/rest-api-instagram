@@ -1,8 +1,9 @@
-const { Post, Coment, User } = require('../models');
-const sequelize = require('sequelize');
+const { Post, Coment, User, Follower } = require('../models');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 module.exports = {
-    //-----------------------------------
+    // ------------------------------------------------------------------------------------------------
     save: async (req, res) => {
         try {
             const { image, text, userId } = req.body;
@@ -17,12 +18,19 @@ module.exports = {
         }
     },
     
-    //-----------------------------------
+    // ------------------------------------------------------------------------------------------------
     list: async (req, res) => {
         try {
             let { limit = 10, page = 1 } = req.query;
             limit = parseInt(limit);
             page = parseInt(page - 1);
+            
+            //Substituir pelo id do token
+            const conectedUser = 1;
+            
+            const users = await Follower.findAll({ where: { userId: conectedUser }, attributes:['followerId']});
+            let followers = users.map(user => JSON.parse(user.followerId));
+
             const { count: size, rows: posts } = await Post.findAndCountAll({
                 include: [
                     { model: User, as: 'user', attributes: ['id', 'name', 'avatar'] },
@@ -35,6 +43,7 @@ module.exports = {
                     }
                 ],
                 attributes: { exclude: ['userId', 'createdAt', 'updatedAt'] },
+                where: { userId: { [Op.in]: [...followers, conectedUser] } },
                 limit,
                 offset: limit * page
             });
@@ -45,7 +54,7 @@ module.exports = {
         }
     },
         
-    // --------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
     findById: async (req, res) => {
         const { id } = req.params;
         try {
@@ -62,14 +71,14 @@ module.exports = {
                 ],
                 attributes: { exclude: ['userId', 'createdAt', 'updatedAt'] }
             });
-            
+                    
             res.status(200).json({ post });
         } catch (error) {
             res.status(401).json({ error });
         }
     },
             
-    // --------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
     edit: async (req, res) => {
         try {
             const { id } = req.params;
@@ -78,13 +87,13 @@ module.exports = {
                 { text }, {
                 where: id
             });
-            res.status(200).json({ post }); 
+            res.status(200).json({ post });
         } catch (error) {
             res.status(401).json({ error });
         }
     },
-            
-    // --------------------------------------------------
+                
+    // ------------------------------------------------------------------------------------------------
     delete: async (req, res) => {
         try {
             const { id } = req.params;
@@ -98,3 +107,4 @@ module.exports = {
         }
     },
 };
+            
