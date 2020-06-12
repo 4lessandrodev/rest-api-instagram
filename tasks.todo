@@ -65,8 +65,8 @@
 ✔ Refatorar a listagem de postagens (listar apenas postagens do próprio usuário e as de quem o usuário é seguidor) @done (11/06/2020 23:56:50)
 ✔ Criar controller e método (follow and unfollow) @done (12/06/2020 15:02:22)
 - Se o usuário já for seguidor deixar de seguir, caso contrário seguir
-☐ Criar método listar seguidores
-☐ Criar método listar quem o usuário está seguindo 
+✔ Criar método listar seguidores @done (12/06/2020 16:06:55)
+✔ Criar método listar quem o usuário está seguindo @done (12/06/2020 16:06:57)
 
 ☐ Aplicar controle de acesso
 - Apenas o usuário que criou uma postagem pode editar e deletar a mesma
