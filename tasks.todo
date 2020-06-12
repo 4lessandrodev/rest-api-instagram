@@ -56,13 +56,13 @@
 ✔ Criar método salvar/excluir like @done (08/06/2020 23:19:17)
 - Verificar se o usuário que está curtindo já possuim um like (Se sim -> unlike)
 
-☐ Implementar followers
+✔ Implementar followers @done (11/06/2020 23:07:21)
 - Criar tabela no banco de dados 
 - Criar model 
 - Criar migration
 - Criar seeder
 
-☐ Refatorar a listagem de postagens (listar apenas postagens de quem o usuário é seguidor)
+☐ Refatorar a listagem de postagens (listar apenas postagens do próprio usuário e as de quem o usuário é seguidor)
 
 - Implementar validações
 ☐ Validar dados obrigatórios para salvar usuários
