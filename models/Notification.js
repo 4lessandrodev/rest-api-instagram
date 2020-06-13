@@ -62,8 +62,8 @@ module.exports = function (sequelize, DataTypes) {
   );
 
   Notification.associate = (models) => {
-    Notification.hasOne(models.NotificationCategory, { as: 'coments', foreignKey: 'categoryId' });
-    Notification.hasOne(models.User, { as: 'user_sent', foreignKey: 'userId' });
+    Notification.belongsTo(models.NotificationCategory, { as: 'coments', foreignKey: 'categoryId' });
+    Notification.belongsTo(models.User, { as: 'user_sent', foreignKey: 'userId' });
     Notification.belongsTo(models.User, { as: 'user_receive', foreignKey: 'receiverId' });
   };
 

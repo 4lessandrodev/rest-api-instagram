@@ -9,6 +9,7 @@ module.exports = {
       limit = parseInt(limit);
       page = parseInt(page - 1);
       const { postId } = req.params;
+      console.log(req.params);
       const { count: size, rows: coments } = await Coment.findAndCountAll({
         where: { postId },
         limit: limit,
@@ -16,6 +17,7 @@ module.exports = {
       });
       res.status(200).json({ coments, size });
     } catch (error) {
+      console.log(error);
       res.status(401).json({ error });
     }
   },

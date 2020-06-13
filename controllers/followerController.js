@@ -88,6 +88,24 @@ module.exports = {
     } catch (error) {
       res.status(401).json({ error });
     }
+  },
+
+  // ------------------------------------------------------------------------------------------------
+  find: async (req, res) => {
+    try {
+      let { id } = req.params;
+
+      const users  = await User.findByPk(id,{
+        attributes: { exclude: ['password', 'createdAt', 'updatedAt'] },
+        limit,
+        offset: limit * page
+      });
+
+      res.status(200).json({ users });
+
+    } catch (error) {
+      res.status(401).json({ error });
+    }
   }
 
 };

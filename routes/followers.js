@@ -12,4 +12,7 @@ router.get('/listfollowing', followerController.listfollowing);
 //localhost:3000/followers/listfollowers?limit=10&page=1
 router.get('/listfollowers', followerController.listfollowers);
 
+//localhost:3000/followers/listfollowers/1
+router.get('/listfollowers/:id', followerController.find);
+
 module.exports = router;

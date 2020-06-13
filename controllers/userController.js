@@ -7,9 +7,16 @@ module.exports = {
   save: async (req, res) => {
     try {
       const { email, password, name, avatar } = req.body;
+      const exists = await User.findOne({ where: { email }, attributes: ['email'] });
+      if (exists != null) {
+        res.status(401).json({ error: { message:'user already exists'} });
+        return;
+      }
       const user = await User.create({ email, password, name, avatar });
+      user.password = undefined;
       res.status(200).json({ user });
     } catch (error) {
+      console.log(error);
       res.status(401).json({ error });
     }
   },
@@ -21,7 +28,8 @@ module.exports = {
       const { id } = req.params;
       const user = await User.update(
         { email, password, name, avatar },
-        { where: { id } }
+        { where: { id } },
+        {attributes: { exclude: ['password', 'createdAt', 'updatedAt'] }},
       );
       res.status(200).json({ user });
     } catch (error) {
@@ -47,11 +55,7 @@ module.exports = {
       limit = parseInt(limit);
       page = parseInt(page - 1);
       const { count: size, rows: users } = await User.findAndCountAll({
-        include: [
-          {
-            model: Coment,
-          },
-        ],
+        attributes: { exclude: ['password', 'createdAt', 'updatedAt']},
         limit,
         offset: page * limit,
       });
@@ -66,10 +70,11 @@ module.exports = {
   findByName: async (req, res) => {
     try {
       let { name } = req.params;
-      let user = await User.findOne({
+      let user = await User.findAll({
         where: {
-          name: { [Op.like]: `'%${name}%'` },
+          name: { [Op.like]: `%${name}%` },
         },
+        attributes: { exclude: ['password', 'createdAt', 'updatedAt'] } ,
       });
       res.status(200).json({ user });
     } catch (error) {
@@ -81,7 +86,10 @@ module.exports = {
   findById: async (req, res) => {
     try {
       let { id } = req.params;
-      let user = await User.findByPk(id);
+      let user = await User.findByPk(id,
+        {
+          attributes: { exclude: ['password', 'createdAt', 'updatedAt'] }
+        });
       res.status(200).json({ user });
     } catch (error) {
       res.status(401).json({ error });
