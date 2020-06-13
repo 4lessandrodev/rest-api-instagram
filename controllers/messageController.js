@@ -1,4 +1,4 @@
-const { Message, User } = require('./../models');
+const { Message, User, Notification } = require('./../models');
 const sequelize = require('sequelize');
 const Op = sequelize.Op;
 
@@ -12,7 +12,7 @@ module.exports = {
       const conectedUser = 1;
       
       const message = await Message.create({ text, receiverId, userId: conectedUser });
-      
+      await Notification.create({ categoryId: 2, userId: conectedUser, receiverId, elementId: message.id });
       res.status(200).json({ message });
       
     } catch (error) {

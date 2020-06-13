@@ -1,4 +1,4 @@
-const { Like } = require('../models');
+const { Like, Notification, Post } = require('../models');
 
 module.exports = {
     saveOrDelete: async (req, res) => {
@@ -14,7 +14,9 @@ module.exports = {
 
             
             if (result == null) {
+                let post = await Post.findByPk(postId, { attributes: ['userId'] });
                 like = await Like.create({ userId, postId });
+                await Notification.create({ categoryId: 1, userId, receiverId: post.userId, elementId: postId });
             }
             else {
                 like = await Like.destroy({ where:result.dataValues });

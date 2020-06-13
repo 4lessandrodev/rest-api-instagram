@@ -1,4 +1,4 @@
-const { Coment } = require('../models');
+const { Coment, Notification, Post } = require('../models');
 const sequelize = require('sequelize');
 
 module.exports = {
@@ -23,12 +23,18 @@ module.exports = {
   //-------------------------------------------------------
   save: async (req, res) => {
     try {
-      const { text, postId, userId } = req.body;
+      const { text, postId } = req.body;
+
+      //Conected user
+      let userId = 1;
+
       const coment = await Coment.create({
         text,
         postId,
         userId,
       });
+      const post = await Post.findByPk(postId, { attributes: ['userId'] });
+      await Notification.create({ categoryId: 3, userId, receiverId: post.userId, elementId: postId  });
       res.status(200).json({ coment });
     } catch (error) {
       res.status(401).json({ error });

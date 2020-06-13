@@ -17,6 +17,11 @@ module.exports = {
         id: 3,
         text: 'comentou em sua publicação',
         endPoint: '/posts/find/'
+      },
+      {
+        id: 4,
+        text: 'começou a seguir você',
+        endPoint: '/followers/listfollowers/'
       }
     ], {});
   },

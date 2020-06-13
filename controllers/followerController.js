@@ -1,4 +1,4 @@
-const { Follower, User } = require('./../models');
+const { Follower, User, Notification } = require('./../models');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
@@ -16,6 +16,7 @@ module.exports = {
       
       if (result == null) {
         follow = await Follower.create({ userId, followerId });
+        await Notification.create({ categoryId: 4, userId: followerId, receiverId: userId, elementId: follow.id });
       } else {
         follow = await Follower.destroy({ where: result.dataValues });
       }
