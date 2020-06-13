@@ -47,7 +47,7 @@ module.exports = function (sequelize, DataTypes) {
       read: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: Sequelize.literal('0'),
+        defaultValue:0,
         comment: 'this reference notification checked as read'
       },
       elementId: {
@@ -62,9 +62,9 @@ module.exports = function (sequelize, DataTypes) {
   );
 
   Notification.associate = (models) => {
-    User.hasOne(models.NotificationCategory, { as: 'coments', foreignKey: 'categoryId' });
-    User.hasOne(models.User, { as: 'user_sent', foreignKey: 'userId' });
-    User.belongsTo(models.User, { as: 'user_receive', foreignKey: 'receiverId' });
+    Notification.hasOne(models.NotificationCategory, { as: 'coments', foreignKey: 'categoryId' });
+    Notification.hasOne(models.User, { as: 'user_sent', foreignKey: 'userId' });
+    Notification.belongsTo(models.User, { as: 'user_receive', foreignKey: 'receiverId' });
   };
 
   return Notification;

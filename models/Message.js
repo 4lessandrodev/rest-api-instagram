@@ -40,9 +40,8 @@ module.exports = function (sequelize, DataTypes) {
     }
   );
 
-  Coment.associate = (models) => {
-    Coment.belongsTo(models.Post, { as: 'user_received', foreignKey: 'receiverId' });
-    Coment.belongsTo(models.User, { as: 'user_sent', foreignKey: 'userId' });
+  Message.associate = (models) => {
+    Message.belongsTo(models.User,{ as:'user_sent', foreignKey:'userId' });
   };
 
   return Message;
