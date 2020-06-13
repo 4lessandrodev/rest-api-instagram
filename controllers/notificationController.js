@@ -38,7 +38,9 @@ module.exports = {
   // ------------------------------------------------------------------------------------------------
   delete: async (req, res) => {
     try {
-      
+      const { id } = req.params;
+      const notification = await Notification.destroy({ where: { id } });
+      res.status(200).json({ notification });
     } catch (error) {
       res.status(401).json({ error });
     }
@@ -47,7 +49,10 @@ module.exports = {
   // ------------------------------------------------------------------------------------------------
   edit: async (req, res) => {
     try {
-      
+      const { id } = req.params;
+      const { read } = req.body;
+      const notification = await Notification.update({ read }, { where: { id } });
+      res.status(200).json({notification});
     } catch (error) {
       res.status(401).json({ error });
     }
