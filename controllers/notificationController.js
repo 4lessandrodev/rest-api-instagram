@@ -39,7 +39,9 @@ module.exports = {
   delete: async (req, res) => {
     try {
       const { id } = req.params;
-      const notification = await Notification.destroy({ where: { id } });
+      //Usuário conectado
+      let userId = 1;
+      const notification = await Notification.destroy({ where: { id, userId } });
       res.status(200).json({ notification });
     } catch (error) {
       res.status(401).json({ error });
@@ -51,7 +53,10 @@ module.exports = {
     try {
       const { id } = req.params;
       const { read } = req.body;
-      const notification = await Notification.update({ read }, { where: { id } });
+      //Usuário conectado
+      let userId = 1;
+
+      const notification = await Notification.update({ read }, { where: { id, userId } });
       res.status(200).json({notification});
     } catch (error) {
       res.status(401).json({ error });

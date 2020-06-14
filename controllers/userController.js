@@ -25,10 +25,12 @@ module.exports = {
   edit: async (req, res) => {
     try {
       const { email, password, name, avatar } = req.body;
-      const { id } = req.params;
+      //Usuário conectado
+      const userId = 1;
+
       const user = await User.update(
         { email, password, name, avatar },
-        { where: { id } },
+        { where: { id: userId } },
         {attributes: { exclude: ['password', 'createdAt', 'updatedAt'] }},
       );
       res.status(200).json({ user });
@@ -40,8 +42,9 @@ module.exports = {
   //-------------------------------------------------------
   delete: async (req, res) => {
     try {
-      const { id } = req.params;
-      const user = await User.destroy({ where: { id } });
+      //Usuário conectado
+      const userId = 1;
+      const user = await User.destroy({ where: { id: userId } });
       res.status(200).json({ user });
     } catch (error) {
       res.status(401).json({ error });

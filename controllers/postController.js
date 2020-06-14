@@ -84,9 +84,12 @@ module.exports = {
         try {
             const { id } = req.params;
             const { text } = req.body;
+            //Usuário conectado
+            let userId = 1;
+
             const post = await Post.update(
                 { text }, {
-                where: id
+                    where: id, userId
             });
             res.status(200).json({ post });
         } catch (error) {
@@ -98,8 +101,11 @@ module.exports = {
     delete: async (req, res) => {
         try {
             const { id } = req.params;
+            //Usuário conectado
+            let userId = 1;
+
             const post = await Post.destroy({
-                where: { id }
+                where: { id, userId }
             });
             res.status(200).json({ post });
         } catch (error) {

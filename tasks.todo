@@ -80,17 +80,18 @@
 - Criar migration
 - Criar seeder
 
-☐ Criar método de notificações
+✔ Criar método de notificações @done (13/06/2020 20:00:21)
 - listar
 - marcar como lida
 - excluir 
 
-☐ Aplicar controle de acesso
+✔ Aplicar controle de acesso @done (13/06/2020 21:23:03)
 - Apenas o usuário que criou uma postagem pode editar e deletar a mesma
 - Apenas o usuário que criou o seu cadastro pode editar e excluir o mesmo
 - Apenas o usuário que criou um comentário pode editar e excluir o mesmo
 - Apenas o usuário que começou a seguir um usuário pode deixar de seguir o mesmo
 - Apenas o usuário que curtiu uma publicação pode desfazer o mesmo
+- Apenas o usuário que recebeu a notificação pode excluir ou marcar como lida
 
 - Implementar validações
 ☐ Validar dados obrigatórios para salvar usuários

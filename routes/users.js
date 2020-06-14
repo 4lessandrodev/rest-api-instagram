@@ -7,10 +7,10 @@ var userController = require('../controllers/userController');
 router.post('/save', userController.save);
 
 //localhost:3000/users/edit/1
-router.put('/edit/:id', userController.edit);
+router.put('/edit', userController.edit);
 
-//localhost:3000/users/delete/1
-router.delete('/delete/:id', userController.delete);
+//localhost:3000/users/delete
+router.delete('/delete', userController.delete);
 
 //localhost:3000/users/list?limit=10&page=1
 router.get('/list', userController.list);

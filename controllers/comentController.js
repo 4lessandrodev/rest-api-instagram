@@ -9,7 +9,7 @@ module.exports = {
       limit = parseInt(limit);
       page = parseInt(page - 1);
       const { postId } = req.params;
-      console.log(req.params);
+
       const { count: size, rows: coments } = await Coment.findAndCountAll({
         where: { postId },
         limit: limit,
@@ -47,9 +47,12 @@ module.exports = {
   delete: async (req, res) => {
     try {
       const { id } = req.params;
+      //Usuario conectado
+      let userId = 1;
+
       const coment = await Coment.destroy({
         where: {
-          id,
+          id, userId
         },
       });
       res.status(200).json({ coment });
@@ -63,11 +66,14 @@ module.exports = {
     try {
       const { id } = req.params;
       const { text } = req.body;
+      //Usuario conectado
+      let userId = 1;
+
       const coment = await Coment.update(
         { text },
         {
           where: {
-            id,
+            id, userId
           },
         }
       );

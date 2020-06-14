@@ -24,7 +24,10 @@ module.exports = {
   delete: async (req, res) => {
     try {
       const { id } = req.params;
-      const message = Message.destroy({ where: { id } });
+      //Usuário conectado
+      let userId = 1;
+
+      const message = Message.destroy({ where: { id, userId } });
       res.status(200).json({ message });
     } catch (error) {
       res.status(401).json({error});
