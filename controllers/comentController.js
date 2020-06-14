@@ -34,7 +34,7 @@ module.exports = {
       const { postId } = req.params;
 
       //Conected user
-      let userId = 1;
+      const userId = 1;
 
       const coment = await Coment.create({
         text,
@@ -54,7 +54,7 @@ module.exports = {
     try {
       const { id } = req.params;
       //Usuario conectado
-      let userId = 1;
+      const userId = 1;
 
       const coment = await Coment.destroy({
         where: {
@@ -77,7 +77,7 @@ module.exports = {
       const { id } = req.params;
       const { text } = req.body;
       //Usuario conectado
-      let userId = 1;
+      const userId = 1;
 
       const coment = await Coment.update(
         { text },

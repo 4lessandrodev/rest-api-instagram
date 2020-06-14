@@ -31,7 +31,7 @@ module.exports = {
     try {
       const { id } = req.params;
       //Usuário conectado
-      let userId = 1;
+      const userId = 1;
 
       const message = Message.destroy({ where: { id, userId } });
       res.status(200).json({ message });
@@ -67,7 +67,7 @@ module.exports = {
       const conectedUser = 1;
       const { receiverId } = req.params;
       
-      let { count:size, rows:messages } = await Message.findAndCountAll({
+      const { count:size, rows:messages } = await Message.findAndCountAll({
         where: {
           userId: { [Op.in]: [conectedUser, receiverId] },
           receiverId: { [Op.in]: [conectedUser, receiverId] }

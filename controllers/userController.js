@@ -2,6 +2,8 @@ const { User, Coment } = require('../models');
 const sequelize = require('sequelize');
 const Op = sequelize.Op;
 const { check, validationResult } = require('express-validator');
+const fs = require('fs');
+
 
 module.exports = {
   //-------------------------------------------------------
@@ -11,12 +13,14 @@ module.exports = {
       if (!errors.isEmpty()) {
         return res.status(422).json({ error: errors.array() });
       } 
-      const { email, password, name, avatar } = req.body;
+      const { email, password, name } = req.body;
+      const { file } = req;
+      const avatar = file[0].path + file[0].filename;
       const exists = await User.findOne({ where: { email }, attributes: ['email'] });
       if (exists != null) {
-        res.status(401).json({ error: { message:'user already exists'} });
-        return;
+        return res.status(401).json({ error: { message:'user already exists'} });
       }
+
       const user = await User.create({ email, password, name, avatar });
       user.password = undefined;
       res.status(200).json({ user });
@@ -33,10 +37,19 @@ module.exports = {
       if (!errors.isEmpty()) {
         return res.status(422).json({ error: errors.array() });
       } 
-      const { email, password, name, avatar } = req.body;
+      const { email, name } = req.body;
+      const { file } = req;
+      const avatar = file[0].path + file[0].originalname;
       //Usuário conectado
       const userId = 1;
-
+      const exists = await User.findByPk(userId, { attributes: ['email', 'avatar'] });
+      
+      if (exists == null) {
+        return res.status(404).json({ error: {message:'User not existis'} });
+      }
+      if (file[0]) {
+        fs.unlinkSync(exists.avatar);
+      }
       const user = await User.update(
         { email, password, name, avatar },
         { where: { id: userId } },
@@ -53,6 +66,11 @@ module.exports = {
     try {
       //Usuário conectado
       const userId = 1;
+      const exists = await User.findByPk(userId, { attributes: ['email', 'avatar'] });
+      if (exists == null) {
+        return res.status(404).json({ error: { message: 'User not existis' } });
+      }
+      fs.unlinkSync(exists.avatar);
       const user = await User.destroy({ where: { id: userId } });
       res.status(200).json({ user });
     } catch (error) {
@@ -81,8 +99,8 @@ module.exports = {
   //-------------------------------------------------------
   findByName: async (req, res) => {
     try {
-      let { name } = req.params;
-      let user = await User.findAll({
+      const { name } = req.params;
+      const user = await User.findAll({
         where: {
           name: { [Op.like]: `%${name}%` },
         },
@@ -97,8 +115,8 @@ module.exports = {
   //-------------------------------------------------------
   findById: async (req, res) => {
     try {
-      let { id } = req.params;
-      let user = await User.findByPk(id,
+      const { id } = req.params;
+      const user = await User.findByPk(id,
         {
           attributes: { exclude: ['password', 'createdAt', 'updatedAt'] }
         });

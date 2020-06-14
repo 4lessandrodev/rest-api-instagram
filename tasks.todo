@@ -110,8 +110,8 @@
 - ao salvar/editar usuário 
 - ao salvar/editar uma postagem 
 
-☐ Ao editar a imagem de um usuário validar se o mesmo já possui uma imagem no servidor e apagá-la para salvar a nova
-☐ Ao editar uma imagem da postagem apagar a anterior
+✔ Ao editar a imagem de um usuário validar se o mesmo já possui uma imagem no servidor e apagá-la para salvar a nova @done (14/06/2020 00:41:52)
+✔ Ao editar uma imagem da postagem apagar a anterior @done (14/06/2020 00:41:54)
 
 ☐ Implementar cors
 ☐ Implementar jwt

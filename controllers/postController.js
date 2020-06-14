@@ -2,6 +2,7 @@ const { Post, Coment, User, Follower } = require('../models');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const { check, validationResult } = require('express-validator');
+const fs = require('fs');
 
 module.exports = {
     // ------------------------------------------------------------------------------------------------
@@ -11,7 +12,11 @@ module.exports = {
             if (!errors.isEmpty()) {
                 return res.status(422).json({ error: errors.array() });
             } 
-            const { image, text, userId } = req.body;
+            //conected user
+            const userId = 1;
+            const { text } = req.body;
+            const { file } = req;
+            const image = file[0].path + file[0].filename;
             const post = await Post.create({
                 image,
                 text,
@@ -34,7 +39,7 @@ module.exports = {
             const conectedUser = 1;
             
             const users = await Follower.findAll({ where: { userId: conectedUser }, attributes:['followerId']});
-            let followers = users.map(user => JSON.parse(user.followerId));
+            const followers = users.map(user => JSON.parse(user.followerId));
 
             const { count: size, rows: posts } = await Post.findAndCountAll({
                 include: [
@@ -93,11 +98,19 @@ module.exports = {
             } 
             const { id } = req.params;
             const { text } = req.body;
+            const { file } = req;
+            const image = file[0].path + file[0].filename;
             //Usuário conectado
-            let userId = 1;
-
+            const userId = 1;
+            const exists = await Post.findByPk(id, { attributes: ['image'] });
+            if (exists == null) {
+                return res.status(404).json({ error: { message: 'Post not exists' } });
+            }
+            if (file[0]) {
+                fs.unlinkSync(exists.image);
+            }
             const post = await Post.update(
-                { text }, {
+                { text, image }, {
                     where: id, userId
             });
             res.status(200).json({ post });
@@ -111,7 +124,7 @@ module.exports = {
         try {
             const { id } = req.params;
             //Usuário conectado
-            let userId = 1;
+            const userId = 1;
 
             const post = await Post.destroy({
                 where: { id, userId }

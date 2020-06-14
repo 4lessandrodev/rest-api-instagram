@@ -12,7 +12,7 @@ module.exports = {
       //Substituir pelo id do usuário no token
       const followerId = await Math.ceil(Math.random() * 10);
 
-      let result = await Follower.findOne({ where: { userId, followerId } });
+      const result = await Follower.findOne({ where: { userId, followerId } });
       
       if (result == null) {
         follow = await Follower.create({ userId, followerId });
@@ -39,7 +39,7 @@ module.exports = {
       const conectedUser = 1;
 
       const followed = await Follower.findAll({ where: { userId: conectedUser }, attributes: ['followerId'] });
-      let followedIds = followed.map(user => JSON.parse(user.followerId));
+      const followedIds = followed.map(user => JSON.parse(user.followerId));
 
       const { count:size, rows:users } = await User.findAndCountAll({
         where: {
@@ -70,7 +70,7 @@ module.exports = {
       const conectedUser = 3;
 
       const followed = await Follower.findAll({ where: { followerId: conectedUser }, attributes: ['userId'] });
-      let followedIds = followed.map(user => JSON.parse(user.userId));
+      const followedIds = followed.map(user => JSON.parse(user.userId));
 
       const { count: size, rows: users } = await User.findAndCountAll({
         where: {
@@ -93,7 +93,7 @@ module.exports = {
   // ------------------------------------------------------------------------------------------------
   find: async (req, res) => {
     try {
-      let { id } = req.params;
+      const { id } = req.params;
 
       const users  = await User.findByPk(id,{
         attributes: { exclude: ['password', 'createdAt', 'updatedAt'] },

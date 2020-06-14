@@ -8,7 +8,7 @@ module.exports = {
             //Substituir pelo id do usuário no token
             const userId = await Math.ceil(Math.random() * 10);
             
-            let result = await Like.findOne({
+            const result = await Like.findOne({
                 where: { userId, postId }
             });
 
