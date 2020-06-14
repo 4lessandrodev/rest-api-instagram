@@ -9,7 +9,7 @@ router.get('/list/:postId', comentController.list);
 
 //http://localhost:3000/coments/save
 router.post('/save/:postId', [
-  check('text', 'Text is required, min 1 and max 250 character').isLength({min:1,max:250})
+  check('text', 'Text is required, min 1 and max 250 character').isLength({min:1, max:250})
 ], comentController.save);
 
 //http://localhost:3000/coments/delete/1

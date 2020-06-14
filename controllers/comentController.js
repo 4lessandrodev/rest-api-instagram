@@ -16,7 +16,7 @@ module.exports = {
         limit: limit,
         offset: page * limit,
       });
-      res.status(200).json({ coments, size });
+      res.status(200).json({ size, coments });
     } catch (error) {
       console.log(error);
       res.status(401).json({ error });

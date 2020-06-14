@@ -5,6 +5,7 @@ const  cookieParser = require('cookie-parser');
 const  logger = require('morgan');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const Auth = require('./middleware/Auth');
 
 const  indexRouter = require('./routes/index');
 const  usersRouter = require('./routes/users');
@@ -30,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
 app.use('/', indexRouter);
+app.use(Auth.verifyToken);
 app.use('/users', usersRouter);
 app.use('/coments', comentsRouter);
 app.use('/posts', postsRouter);

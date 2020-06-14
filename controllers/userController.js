@@ -1,37 +1,50 @@
-const { User, Coment } = require('../models');
+const { User } = require('../models');
 const sequelize = require('sequelize');
 const Op = sequelize.Op;
-const { check, validationResult } = require('express-validator');
+const { validationResult, check } = require('express-validator');
 const fs = require('fs');
 const path = require('path');
+const Auth = require('./../middleware/Auth');
+const StoreImage = require('./../middleware/StoreImage');
 require('dotenv').config();
 
 module.exports = {
   //-------------------------------------------------------
-  save: async (req, res) => {
+  save: async (req, res, next) => {
     try {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(422).json({ error: errors.array() });
-      } 
-      const { email, password, name } = req.body;
       const { files } = req;
-      const exists = await User.findOne({ where: { email }, attributes: ['email'] });
-      if (exists != null) {
-        return res.status(401).json({ error: { message:'user already exists'} });
+      const { name } = req.body;
+      const USER = await Auth.decodeHeader(req, res, next);
+      if (USER.error) {
+        return res.status(401).json({ error: { msg: USER.error } });
       }
+      
       if (!files) {
         return res.status(422).json({ error: { msg: 'Image is required' } });
       }
 
+      if (!name) {
+        await StoreImage.delete(req);
+        return res.status(422).json({ error: { msg: 'Name is required' } });
+      }
+
+      const { email, password } = USER;
+      const exists = await User.findOne({ where: { email }, attributes: ['email'] });
+      if (exists != null) {
+        await StoreImage.delete(req, res, next);
+        return res.status(401).json({ error: { message:'user already exists'} });
+      }
       const avatar = path.join(process.env.PROTOCOL, process.env.DOMAIN, process.env.IMAGES_FOLDER,
         process.env.AVATAR_FOLDER_UPLOAD, files[0].filename);
 
       const user = await User.create({ email, password, name, avatar });
       user.password = undefined;
-      res.status(200).json({ user });
+      const token = await Auth.generateToken(req, res, next, { id: user.id, email: user.email });
+
+      res.status(200).json({ user, token });
+
     } catch (error) {
-      console.log(error);
+      await StoreImage.delete(req);
       res.status(401).json({ error });
     }
   },

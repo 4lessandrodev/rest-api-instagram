@@ -17,15 +17,10 @@ var upload = multer({ storage: storage });
 //--------------------------------------------------------------------
 
 //PRIVATE ROUTES
-//localhost:3000/users/signup
-router.post('/signup', [
-  check('credential', 'Headers credential is required').exists(),
-  check('name', 'Name is required, min 1 and max 45 characters').isLength({ max: 45, min: 1 }),
-], upload.any(), userController.save);
+//localhost:3000/signup
+router.post('/signup', upload.any(), userController.save);
 
-router.get('/signin', [
-  check('credential', 'Headers credential is required').exists(),
-]);
+router.post('/signin');
 
 router.get('/', function (req, res) {
   res.render('index', { title: 'Home' });
