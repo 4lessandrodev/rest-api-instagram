@@ -2,6 +2,19 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
 const { check, validationResult } = require('express-validator');
+const multer = require('multer');
+const path = require('path');
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join('.', 'public', 'images', 'avatar'));
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + (String(file.originalname).replace(' ', '')));
+  }
+});
+var upload = multer({ storage: storage });
+//--------------------------------------------------------------------
 
 //PRIVATE ROUTES
 //localhost:3000/users/save
@@ -9,13 +22,13 @@ router.post('/save', [
   check('email', 'Invalid email').isEmail(),
   check('name', 'Name is required, min 1 and max 45 characters').isLength({ max: 45, min: 1 }),
   check('password', 'Password is required, min 1 and max 15 characters').isLength({ max: 15, min: 1 })
-], userController.save);
+], upload.any(), userController.save);
 
 //localhost:3000/users/edit
 router.put('/edit', [
   check('email', 'Invalid email').isEmail(),
   check('name', 'Name is required, min 1 and max 45 characters').isLength({ max: 45, min: 1 }),
-],userController.edit);
+], upload.any(), userController.edit);
 
 //http://localhost:3000/users/delete
 router.delete('/delete', userController.delete);

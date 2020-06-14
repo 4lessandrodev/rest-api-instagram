@@ -94,19 +94,19 @@
 - Apenas o usuário que recebeu a notificação pode excluir ou marcar como lida
 
 - Implementar validações
-☐ Validar dados obrigatórios para salvar usuários
+✔ Validar dados obrigatórios para salvar usuários @done (13/06/2020 22:23:46)
 - nome
 - email
 - senha
 
-☐ Validar dados obrigatórios para salvar postagem 
+✔ Validar dados obrigatórios para salvar postagem @done (13/06/2020 22:23:48)
 - imagem 
 
-☐ Validar dados obrigatórios para salvar comentário
+✔ Validar dados obrigatórios para salvar comentário @done (13/06/2020 22:23:52)
 - texto
 - id da postagem
 
-☐ Implementar upload de imagem (multer)
+✔ Implementar upload de imagem (multer) @done (13/06/2020 22:48:11)
 - ao salvar/editar usuário 
 - ao salvar/editar uma postagem 
 
