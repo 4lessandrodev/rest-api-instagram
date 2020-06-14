@@ -27,4 +27,7 @@ router.get('/signin', [
   check('credential', 'Headers credential is required').exists(),
 ]);
 
+router.get('/', function (req, res) {
+  res.render('index', { title: 'Home' });
+});
 module.exports = router;

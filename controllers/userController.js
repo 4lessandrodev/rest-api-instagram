@@ -3,7 +3,8 @@ const sequelize = require('sequelize');
 const Op = sequelize.Op;
 const { check, validationResult } = require('express-validator');
 const fs = require('fs');
-
+const path = require('path');
+require('dotenv').config();
 
 module.exports = {
   //-------------------------------------------------------
@@ -14,12 +15,17 @@ module.exports = {
         return res.status(422).json({ error: errors.array() });
       } 
       const { email, password, name } = req.body;
-      const { file } = req;
-      const avatar = file[0].path + file[0].filename;
+      const { files } = req;
       const exists = await User.findOne({ where: { email }, attributes: ['email'] });
       if (exists != null) {
         return res.status(401).json({ error: { message:'user already exists'} });
       }
+      if (!files) {
+        return res.status(422).json({ error: { msg: 'Image is required' } });
+      }
+
+      const avatar = path.join(process.env.PROTOCOL, process.env.DOMAIN, process.env.IMAGES_FOLDER,
+        process.env.AVATAR_FOLDER_UPLOAD, files[0].filename);
 
       const user = await User.create({ email, password, name, avatar });
       user.password = undefined;
@@ -38,8 +44,8 @@ module.exports = {
         return res.status(422).json({ error: errors.array() });
       } 
       const { email, name } = req.body;
-      const { file } = req;
-      const avatar = file[0].path + file[0].originalname;
+      const { files } = req;
+      let avatar;
       //Usuário conectado
       const userId = 1;
       const exists = await User.findByPk(userId, { attributes: ['email', 'avatar'] });
@@ -47,8 +53,10 @@ module.exports = {
       if (exists == null) {
         return res.status(404).json({ error: {message:'User not existis'} });
       }
-      if (file[0]) {
+      if (files[0]) {
         fs.unlinkSync(exists.avatar);
+        avatar = path.join(process.env.PROTOCOL, process.env.DOMAIN, process.env.IMAGES_FOLDER,
+          process.env.AVATAR_FOLDER_UPLOAD, files[0].filename);
       }
       const user = await User.update(
         { email, password, name, avatar },

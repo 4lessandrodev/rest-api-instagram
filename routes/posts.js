@@ -18,9 +18,7 @@ var upload = multer({ storage: storage });
 
 //PRIVATE ROUTES
 //http://localhost:3000/posts/save
-router.post('/save', [
-  check('image', 'Image is required').isArray()
-], upload.any(), postController.save);
+router.post('/save', upload.any(), postController.save);
 
 //http://localhost:3000/posts/list?limit=10&page=1
 router.get('/list', postController.list);
@@ -29,9 +27,7 @@ router.get('/list', postController.list);
 router.get('/find/:id', postController.findById);
 
 //http://localhost:3000/posts/edit/1
-router.put('/edit/:id', [
-  check('image', 'Image is required').isArray()
-], upload.any(), postController.edit);
+router.put('/edit/:id', upload.any(), postController.edit);
 
 //http://localhost:3000/posts/delete/1
 router.delete('/delete/:id', postController.delete);

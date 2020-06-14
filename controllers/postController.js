@@ -3,6 +3,8 @@ const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const { check, validationResult } = require('express-validator');
 const fs = require('fs');
+const path = require('path');
+require('dotenv').config();
 
 module.exports = {
     // ------------------------------------------------------------------------------------------------
@@ -15,8 +17,13 @@ module.exports = {
             //conected user
             const userId = 1;
             const { text } = req.body;
-            const { file } = req;
-            const image = file[0].path + file[0].filename;
+            const { files } = req;
+            if (!files) {
+                return res.status(422).json({ error: {msg:'Image is required'} });
+            }
+            const image = path.join(process.env.PROTOCOL, process.env.DOMAIN, process.env.IMAGES_FOLDER,
+                process.env.POST_FOLDER_UPLOAD, files[0].filename);
+
             const post = await Post.create({
                 image,
                 text,
@@ -98,16 +105,19 @@ module.exports = {
             } 
             const { id } = req.params;
             const { text } = req.body;
-            const { file } = req;
-            const image = file[0].path + file[0].filename;
+            const { files } = req;
+            let image;
+            
             //Usuário conectado
             const userId = 1;
             const exists = await Post.findByPk(id, { attributes: ['image'] });
             if (exists == null) {
                 return res.status(404).json({ error: { message: 'Post not exists' } });
             }
-            if (file[0]) {
+            if (fileS[0]) {
                 fs.unlinkSync(exists.image);
+                image = path.join(process.env.PROTOCOL, process.env.DOMAIN, process.env.IMAGES_FOLDER,
+                    process.env.POST_FOLDER_UPLOAD, files[0].filename);
             }
             const post = await Post.update(
                 { text, image }, {

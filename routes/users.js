@@ -20,14 +20,14 @@ var upload = multer({ storage: storage });
 //localhost:3000/users/save
 router.post('/save', [
   check('email', 'Invalid email').isEmail(),
-  check('name', 'Name is required, min 1 and max 45 characters').isLength({ max: 45, min: 1 }),
-  check('password', 'Password is required, min 1 and max 15 characters').isLength({ max: 15, min: 1 })
+  check('name', 'Name is required, min 1 and max 45 characters').isLength({ min: 1, max: 45 }),
+  check('password', 'Password is required, min 1 and max 15 characters').isLength({ min: 1, max: 15 })
 ], upload.any(), userController.save);
 
 //localhost:3000/users/edit
 router.put('/edit', [
   check('email', 'Invalid email').isEmail(),
-  check('name', 'Name is required, min 1 and max 45 characters').isLength({ max: 45, min: 1 }),
+  check('name', 'Name is required, min 1 and max 45 characters').isLength({ min: 1, max: 45 }),
 ], upload.any(), userController.edit);
 
 //http://localhost:3000/users/delete
