@@ -1,5 +1,6 @@
 const { Coment, Notification, Post } = require('../models');
 const sequelize = require('sequelize');
+const { check, validationResult } = require('express-validator');
 
 module.exports = {
   //-------------------------------------------------------
@@ -25,7 +26,12 @@ module.exports = {
   //-------------------------------------------------------
   save: async (req, res) => {
     try {
-      const { text, postId } = req.body;
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(422).json({ error: errors.array() });
+      } 
+      const { text } = req.body;
+      const { postId } = req.params;
 
       //Conected user
       let userId = 1;
@@ -64,6 +70,10 @@ module.exports = {
   //-------------------------------------------------------
   edit: async (req, res) => {
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(422).json({ error: errors.array() });
+      } 
       const { id } = req.params;
       const { text } = req.body;
       //Usuario conectado

@@ -1,12 +1,18 @@
 const { Message, User, Notification } = require('./../models');
 const sequelize = require('sequelize');
 const Op = sequelize.Op;
+const { check, validationResult } = require('express-validator');
 
 module.exports = {  
   // ------------------------------------------------------------------------------------------------
   save: async (req, res) => {
     try {
-      const { text, receiverId } = req.body;
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(422).json({ error: errors.array() });
+      } 
+      const { text } = req.body;
+      const { receiverId } = req.params;
       
       //trocar pelo id do uauário logado token
       const conectedUser = 1;
@@ -37,6 +43,10 @@ module.exports = {
   // ------------------------------------------------------------------------------------------------
   edit: async (req, res) => {
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(422).json({ error: errors.array() });
+      } 
       const { id } = req.params;
       const { text } = req.body;
       const message = await Message.update({ text }, { where: { id } });

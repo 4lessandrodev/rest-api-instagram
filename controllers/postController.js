@@ -1,11 +1,16 @@
 const { Post, Coment, User, Follower } = require('../models');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
+const { check, validationResult } = require('express-validator');
 
 module.exports = {
     // ------------------------------------------------------------------------------------------------
     save: async (req, res) => {
         try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(422).json({ error: errors.array() });
+            } 
             const { image, text, userId } = req.body;
             const post = await Post.create({
                 image,
@@ -82,6 +87,10 @@ module.exports = {
     // ------------------------------------------------------------------------------------------------
     edit: async (req, res) => {
         try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(422).json({ error: errors.array() });
+            } 
             const { id } = req.params;
             const { text } = req.body;
             //Usuário conectado

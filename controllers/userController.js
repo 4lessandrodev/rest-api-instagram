@@ -1,11 +1,16 @@
 const { User, Coment } = require('../models');
 const sequelize = require('sequelize');
 const Op = sequelize.Op;
+const { check, validationResult } = require('express-validator');
 
 module.exports = {
   //-------------------------------------------------------
   save: async (req, res) => {
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(422).json({ error: errors.array() });
+      } 
       const { email, password, name, avatar } = req.body;
       const exists = await User.findOne({ where: { email }, attributes: ['email'] });
       if (exists != null) {
@@ -24,6 +29,10 @@ module.exports = {
   //-------------------------------------------------------
   edit: async (req, res) => {
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(422).json({ error: errors.array() });
+      } 
       const { email, password, name, avatar } = req.body;
       //Usuário conectado
       const userId = 1;
