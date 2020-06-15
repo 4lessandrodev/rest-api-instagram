@@ -36,7 +36,7 @@ module.exports = {
   generateToken: (req, res, next, user) => {
     try {
       let secret = process.env.SECRET_HASHKEY;
-      let token = jwt.sign(user, secret, { expiresIn: '1 minute' }); 
+      let token = jwt.sign(user, secret, { expiresIn: '7 days' }); 
       return token;
     } catch (error) {
       return { error:{msg:'Could not generate token'} };
