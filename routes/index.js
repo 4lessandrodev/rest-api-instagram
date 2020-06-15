@@ -17,13 +17,13 @@ var upload = multer({ storage: storage });
 //--------------------------------------------------------------------
 
 //PUBLIC ROUTES
-//http://localhost:3000/signup
+//http://localhost:3000/register
 router.post('/register', upload.any(), userController.save);
 
-//http://localhost:3000/signin
+//http://localhost:3000/login
 router.post('/login', userController.login);
 
-//http://localhost:3000/signout
+//http://localhost:3000/logout
 router.get('/logout', userController.logout);
 
 //http://localhost:3000/

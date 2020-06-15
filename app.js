@@ -33,7 +33,7 @@ app.use(cors());
 app.use('/', indexRouter);
 app.use(Auth.verifyToken);
 app.use('/users', usersRouter);
-app.use('/coments', comentsRouter);
+app.use('/comments', comentsRouter);
 app.use('/posts', postsRouter);
 app.use('/likes', likesRouter);
 app.use('/followers', followersRouter);

@@ -46,9 +46,9 @@ module.exports = {
       const { id } = req.params;
 
       const conectedUser = await Auth.decodeToken(req, res);
-      const userId = conectedUser.id;
+      const receiverId = conectedUser.id;
 
-      const notification = await Notification.destroy({ where: { id, userId } });
+      const notification = await Notification.destroy({ where: { id, receiverId } });
       res.status(200).json({ notification });
     } catch (error) {
       res.status(401).json({ error:{msg:'Couldn´t delete notification'} });
@@ -62,9 +62,9 @@ module.exports = {
       const { read } = req.body;
 
       const conectedUser = await Auth.decodeToken(req, res);
-      const userId = conectedUser.id;
+      const receiverId = conectedUser.id;
 
-      const notification = await Notification.update({ read }, { where: { id, userId } });
+      const notification = await Notification.update({ read }, { where: { id, receiverId } });
       res.status(200).json({notification});
     } catch (error) {
       res.status(401).json({ error:{msg:'Couldn´t edit notification'} });

@@ -25,21 +25,20 @@ module.exports = {
       }
       
       if (!name) {
-        await StoreImage.delete(req);
+        await StoreImage.deleteUserAvatar(req);
         return res.status(422).json({ error: { msg: 'Name is required' } });
       }
       
       const { email, password } = USER;
       const exists = await User.findOne({ where: { email }, attributes: ['email'] });
       if (exists != null) {
-        await StoreImage.delete(req, res, next);
+        await StoreImage.deleteUserAvatar(req, res, next);
         return res.status(401).json({ error: { message: 'user already exists' } });
       }
       const avatar = path.join(process.env.PROTOCOL, process.env.DOMAIN, process.env.IMAGES_FOLDER,
         process.env.AVATAR_FOLDER_UPLOAD, files[0].filename);
         
       const encriptedPass = await bcrypt.hashSync(password, 10);
-      console.log(encriptedPass);
       const user = await User.create({ email, password:encriptedPass, name, avatar });
       user.password = undefined;
       const token = await Auth.generateToken(req, res, next, { id: user.id, email: user.email });
@@ -47,7 +46,7 @@ module.exports = {
       res.status(200).json({ user, token });
         
     } catch (error) {
-      await StoreImage.delete(req);
+      await StoreImage.deleteUserAvatar(req);
       res.status(401).json({ error });
     }
   },
@@ -55,34 +54,40 @@ module.exports = {
   //-------------------------------------------------------
   edit: async (req, res) => {
     try {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(422).json({ error: errors.array() });
-      }
+
       const { email, name } = req.body;
       const { files } = req;
       let avatar;
-
+      
       const conectedUser = await Auth.decodeToken(req, res);
       const userId = conectedUser.id;
 
       const exists = await User.findByPk(userId, { attributes: ['email', 'avatar'] });
+      const emailAlreadyRegistered = await User.findOne({ where: { email }, attributes: ['email'] });
+      if (emailAlreadyRegistered) {
+        await StoreImage.deleteUserAvatar(req);
+        return res.status(422).json({ error: { message: 'This email is already in use' } }); 
+      }
         
       if (exists == null) {
-        return res.status(404).json({ error: { message: 'User not existis' } });
+        await StoreImage.deleteUserAvatar(req);
+        return res.status(422).json({ error: { message: 'User not existis' } });
       }
+
       if (files[0]) {
-        fs.unlinkSync(exists.avatar);
+        await StoreImage.deleteOldUserAvatar(exists.avatar);
         avatar = path.join(process.env.PROTOCOL, process.env.DOMAIN, process.env.IMAGES_FOLDER,
           process.env.AVATAR_FOLDER_UPLOAD, files[0].filename);
       }
+
       const user = await User.update(
-        { email, password, name, avatar },
+        { email, name, avatar },
         { where: { id: userId } },
         { attributes: { exclude: ['password', 'createdAt', 'updatedAt'] } },
       );
       res.status(200).json({ user });
     } catch (error) {
+      await StoreImage.deleteUserAvatar(req);
       res.status(401).json({ error:{msg:'Couldn´t edit user'} });
     }
   },
@@ -97,7 +102,9 @@ module.exports = {
       if (exists == null) {
         return res.status(422).json({ error: { message: 'User not existis' } });
       }
-      fs.unlinkSync(exists.avatar);
+      
+      await StoreImage.deleteOldUserAvatar(exists.avatar);
+
       const user = await User.destroy({ where: { id: userId } });
       res.status(200).json({ user });
     } catch (error) {
@@ -116,9 +123,8 @@ module.exports = {
         limit,
         offset: page * limit,
       });
-      res.status(200).json({ users, size });
+      res.status(200).json({  size, users });
     } catch (error) {
-      console.log(error);
       res.status(401).json({ error:{msg:'Couldn´t list users'} });
     }
   },

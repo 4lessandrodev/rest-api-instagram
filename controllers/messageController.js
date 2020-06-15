@@ -15,11 +15,11 @@ module.exports = {
       const { text } = req.body;
       const { receiverId } = req.params;
       
-      //trocar pelo id do uauário logado token
-      const conectedUser = 1;
+      const conectedUser = await Auth.decodeToken(req, res);
+      const userId = conectedUser.id;
       
-      const message = await Message.create({ text, receiverId, userId: conectedUser });
-      await Notification.create({ categoryId: 2, userId: conectedUser, receiverId, elementId: message.id });
+      const message = await Message.create({ text, receiverId, userId });
+      await Notification.create({ categoryId: 2, userId, receiverId, elementId: message.id });
       res.status(200).json({ message });
       
     } catch (error) {
@@ -31,10 +31,11 @@ module.exports = {
   delete: async (req, res) => {
     try {
       const { id } = req.params;
-      //Usuário conectado
-      const userId = 1;
+      
+      const conectedUser = await Auth.decodeToken(req, res);
+      const userId = conectedUser.id;
 
-      const message = Message.destroy({ where: { id, userId } });
+      const message = await Message.destroy({ where: { id, userId } });
       res.status(200).json({ message });
     } catch (error) {
       res.status(401).json({error});
@@ -50,7 +51,11 @@ module.exports = {
       } 
       const { id } = req.params;
       const { text } = req.body;
-      const message = await Message.update({ text }, { where: { id } });
+      
+      const conectedUser = await Auth.decodeToken(req, res);
+      const userId = conectedUser.id;
+
+      const message = await Message.update({ text }, { where: { id, userId } });
       res.status(200).json({ message });
     } catch (error) {
       res.status(401).json({ error });

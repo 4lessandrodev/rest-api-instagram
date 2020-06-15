@@ -6,6 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const Auth = require('./../middleware/Auth');
 require('dotenv').config();
+const StoreImage = require('./../middleware/StoreImage');
 
 module.exports = {
     // ------------------------------------------------------------------------------------------------
@@ -102,10 +103,7 @@ module.exports = {
     // ------------------------------------------------------------------------------------------------
     edit: async (req, res) => {
         try {
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                return res.status(422).json({ error: errors.array() });
-            } 
+
             const { id } = req.params;
             const { text } = req.body;
             const { files } = req;
@@ -114,21 +112,25 @@ module.exports = {
             const conectedUser = await Auth.decodeToken(req, res);
             const userId = conectedUser.id;
 
-            const exists = await Post.findByPk(id, { attributes: ['image'] });
-            if (exists == null) {
-                return res.status(404).json({ error: { message: 'Post not exists' } });
+            const exists = await Post.findOne({ where: { id, userId }, attributes: ['image'] });
+            if (!exists) {
+                await StoreImage.deletePostImage(req);
+                return res.status(422).json({ error: { message: 'Post not exists' } });
             }
-            if (fileS[0]) {
-                fs.unlinkSync(exists.image);
-                image = path.join(process.env.PROTOCOL, process.env.DOMAIN, process.env.IMAGES_FOLDER,
-                    process.env.POST_FOLDER_UPLOAD, files[0].filename);
-            }
+
+            await StoreImage.deleteOldPostImage(exists.image);
+
+            image = path.join(process.env.PROTOCOL, process.env.DOMAIN, process.env.IMAGES_FOLDER,
+                process.env.POST_FOLDER_UPLOAD, files[0].filename);
+            
             const post = await Post.update(
                 { text, image }, {
-                    where: id, userId
+                    where: { id, userId }
             });
             res.status(200).json({ post });
         } catch (error) {
+            console.log(error);
+            await StoreImage.deletePostImage(req);
             res.status(401).json({ error:{msg:'Couldn´t edit post'} });
         }
     },
@@ -140,6 +142,14 @@ module.exports = {
 
             const conectedUser = await Auth.decodeToken(req, res);
             const userId = conectedUser.id;
+
+            const exists = await Post.findOne({ where: { id, userId }, attributes: ['image'] });
+            if (!exists) {
+                return res.status(422).json({ error: { message: 'Post not exists' } });
+            }
+
+            await StoreImage.deleteOldPostImage(exists.image);
+
 
             const post = await Post.destroy({
                 where: { id, userId }
