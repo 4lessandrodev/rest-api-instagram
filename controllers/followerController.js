@@ -1,6 +1,7 @@
 const { Follower, User, Notification } = require('./../models');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
+const Auth = require('./../middleware/Auth');
 
 module.exports = {
   // ------------------------------------------------------------------------------------------------
@@ -9,8 +10,8 @@ module.exports = {
       let follow;
       const { userId } = req.params;
 
-      //Substituir pelo id do usuário no token
-      const followerId = await Math.ceil(Math.random() * 10);
+      const conectedUser = await Auth.decodeToken(req, res);
+      const followerId = conectedUser.id;
 
       const result = await Follower.findOne({ where: { userId, followerId } });
       
@@ -24,7 +25,7 @@ module.exports = {
       res.status(200).json({ follow });
 
     } catch (error) {
-      res.status(401).json({error});
+      res.status(401).json({error:{msg:'Couldn´t complete the operation'}});
     }
   },
 
@@ -35,10 +36,10 @@ module.exports = {
       limit = parseInt(limit);
       page = parseInt(page - 1);
 
-      //Substituir pelo id do token
-      const conectedUser = 1;
+      const conectedUser = await Auth.decodeToken(req, res);
+      const userId = conectedUser.id;
 
-      const followed = await Follower.findAll({ where: { userId: conectedUser }, attributes: ['followerId'] });
+      const followed = await Follower.findAll({ where: { userId }, attributes: ['followerId'] });
       const followedIds = followed.map(user => JSON.parse(user.followerId));
 
       const { count:size, rows:users } = await User.findAndCountAll({
@@ -55,7 +56,7 @@ module.exports = {
       res.status(200).json({ size, users });
 
     } catch (error) {
-      res.status(401).json({ error });
+      res.status(401).json({ error:{msg:'Couldn´t list following'} });
     }
   },
 
@@ -66,10 +67,10 @@ module.exports = {
       limit = parseInt(limit);
       page = parseInt(page - 1);
 
-      //Substituir pelo id do token
-      const conectedUser = 3;
+      const conectedUser = await Auth.decodeToken(req, res);
+      const followerId = conectedUser.id;
 
-      const followed = await Follower.findAll({ where: { followerId: conectedUser }, attributes: ['userId'] });
+      const followed = await Follower.findAll({ where: { followerId }, attributes: ['userId'] });
       const followedIds = followed.map(user => JSON.parse(user.userId));
 
       const { count: size, rows: users } = await User.findAndCountAll({
@@ -86,7 +87,7 @@ module.exports = {
       res.status(200).json({ size, users });
 
     } catch (error) {
-      res.status(401).json({ error });
+      res.status(401).json({ error:{msg:'Couldn´t list followers'} });
     }
   },
 
@@ -104,7 +105,7 @@ module.exports = {
       res.status(200).json({ users });
 
     } catch (error) {
-      res.status(401).json({ error });
+      res.status(401).json({ error:{msg:'Couldn´t find follower'} });
     }
   }
 

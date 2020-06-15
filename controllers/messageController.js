@@ -2,6 +2,7 @@ const { Message, User, Notification } = require('./../models');
 const sequelize = require('sequelize');
 const Op = sequelize.Op;
 const { check, validationResult } = require('express-validator');
+const Auth = require('./../middleware/Auth');
 
 module.exports = {  
   // ------------------------------------------------------------------------------------------------
@@ -63,14 +64,14 @@ module.exports = {
       limit = parseInt(limit);
       page = parseInt(page - 1);
 
-      //trocar pelo id do uauário logado token
-      const conectedUser = 1;
+      const conectedUser = await Auth.decodeToken(req, res);
+      const userId = conectedUser.id;
       const { receiverId } = req.params;
       
       const { count:size, rows:messages } = await Message.findAndCountAll({
         where: {
-          userId: { [Op.in]: [conectedUser, receiverId] },
-          receiverId: { [Op.in]: [conectedUser, receiverId] }
+          userId: { [Op.in]: [userId, receiverId] },
+          receiverId: { [Op.in]: [userId, receiverId] }
         },
         include: [{ model: User, as:'user_sent', required:true, attributes: ['id', 'name', 'avatar']}],
         limit,
@@ -81,7 +82,7 @@ module.exports = {
       
     } catch (error) {
       console.log(error);
-      res.status(401).json({ error });
+      res.status(401).json({ error:{msg:'Couldn´t list messages'} });
     }  
   }
 };

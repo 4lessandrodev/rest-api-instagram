@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const CryptoJS = require("crypto-js");
+const cryptoJS = require('crypto-js');
 require('dotenv').config();
 
 module.exports = {
@@ -14,15 +14,19 @@ module.exports = {
         return result;
       }
       const credential = req.headers.credential;
-      const bytes = CryptoJS.AES.decrypt(credential, secretHeaders);
-      const user = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-      if (user.email == undefined || user.password == undefined) {
+      const bytes = cryptoJS.AES.decrypt(credential, secretHeaders);
+      if (bytes == '') {
         result.error = { msg: 'Invalid credential format in headers' };
         return result;
       }
-      console.log(user);
+      const user = JSON.parse(bytes.toString(cryptoJS.enc.Utf8));
+      if (user.email == undefined) {
+        result.error = { msg: 'Invalid credential format in headers' };
+        return result;
+      }
       return user;
     } catch (error) {
+      console.log(error);
       result.error = { msg: 'Invalid credential format in headers' };
       return result;
     }
@@ -43,12 +47,12 @@ module.exports = {
   verifyToken: (req, res, next) => {
     try {
       if (!req.headers.authorization) {
-        return res.status(401).json({ error: { msg: 'Token inválido' } });
+        return res.status(401).json({ error: { msg: 'Invalid token' } });
       } else {
         const token = req.headers.authorization.substring(7);//init with Bearer
         const user = jwt.verify(token, process.env.SECRET_HASHKEY);
         if (!user.id) {
-          return res.status(401).json({ error: { msg: 'Token inválido' } });
+          return res.status(401).json({ error: { msg: 'Invalid token' } });
         } else {
           next();
         }
@@ -61,19 +65,18 @@ module.exports = {
   //--------------------------------------------------------
   decodeToken: (req, res)=>{
     try {
-      if (!req.headers.authorization) {
-        return res.status(401).json({ error: { msg: 'Invalid token' } });
-      } else {
-        const token = req.headers.authorization.substring(7);//init with Bearer
-        const user = jwt.verify(token, process.env.SECRET_HASHKEY);
-        if (!user.id) {
-          return res.status(401).json({ error: { msg: 'Inválid token' } });
-        } else {
-          return decode;
-        }
-      }
+      const token = req.headers.authorization.substring(7);//init with Bearer
+      const user = jwt.verify(token, process.env.SECRET_HASHKEY);
+      return user;
     } catch (error) {
       return res.status(401).json({ error: { msg: 'Invalid token' } });
     }
+  },
+
+  //--------------------------------------------------------
+  desconect: (req, res, user) => {
+      let secret = process.env.SECRET_HASHKEY;
+      let token = jwt.sign(user, secret, { expiresIn: '1ms' });
+      return token;
   }
 };

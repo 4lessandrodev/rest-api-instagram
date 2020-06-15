@@ -4,6 +4,7 @@ const Op = Sequelize.Op;
 const { check, validationResult } = require('express-validator');
 const fs = require('fs');
 const path = require('path');
+const Auth = require('./../middleware/Auth');
 require('dotenv').config();
 
 module.exports = {
@@ -14,8 +15,10 @@ module.exports = {
             if (!errors.isEmpty()) {
                 return res.status(422).json({ error: errors.array() });
             } 
-            //conected user
-            const userId = 1;
+
+            const conectedUser = await Auth.decodeToken(req, res);
+            const userId = conectedUser.id;
+
             const { text } = req.body;
             const { files } = req;
             if (!files) {
@@ -31,7 +34,7 @@ module.exports = {
             });
             res.status(200).json({ post });
         } catch (error) {
-            res.status(401).json({ error });
+            res.status(401).json({ error:{msg:'couldn´t save post'} });
         }
     },
     
@@ -42,10 +45,10 @@ module.exports = {
             limit = parseInt(limit);
             page = parseInt(page - 1);
             
-            //Substituir pelo id do token
-            const conectedUser = 1;
+            const conectedUser = await Auth.decodeToken(req, res);
+            const userId = conectedUser.id;
             
-            const users = await Follower.findAll({ where: { userId: conectedUser }, attributes:['followerId']});
+            const users = await Follower.findAll({ where: { userId }, attributes:['followerId']});
             const followers = users.map(user => JSON.parse(user.followerId));
 
             const { count: size, rows: posts } = await Post.findAndCountAll({
@@ -60,7 +63,7 @@ module.exports = {
                     }
                 ],
                 attributes: { exclude: ['userId', 'createdAt', 'updatedAt'] },
-                where: { userId: { [Op.in]: [...followers, conectedUser] } },
+                where: { userId: { [Op.in]: [...followers, userId] } },
                 limit,
                 offset: limit * page
             });
@@ -68,7 +71,7 @@ module.exports = {
             res.status(200).json({ size, posts });
             
         } catch (error) {
-            res.status(401).json({ error });
+            res.status(401).json({ error:{msg:'Couldn´t list posts'} });
         }
     },
         
@@ -92,7 +95,7 @@ module.exports = {
                     
             res.status(200).json({ post });
         } catch (error) {
-            res.status(401).json({ error });
+            res.status(401).json({ error:{msg:'Couldn´t find post'} });
         }
     },
             
@@ -108,8 +111,9 @@ module.exports = {
             const { files } = req;
             let image;
             
-            //Usuário conectado
-            const userId = 1;
+            const conectedUser = await Auth.decodeToken(req, res);
+            const userId = conectedUser.id;
+
             const exists = await Post.findByPk(id, { attributes: ['image'] });
             if (exists == null) {
                 return res.status(404).json({ error: { message: 'Post not exists' } });
@@ -125,7 +129,7 @@ module.exports = {
             });
             res.status(200).json({ post });
         } catch (error) {
-            res.status(401).json({ error });
+            res.status(401).json({ error:{msg:'Couldn´t edit post'} });
         }
     },
                 
@@ -133,8 +137,9 @@ module.exports = {
     delete: async (req, res) => {
         try {
             const { id } = req.params;
-            //Usuário conectado
-            const userId = 1;
+
+            const conectedUser = await Auth.decodeToken(req, res);
+            const userId = conectedUser.id;
 
             const post = await Post.destroy({
                 where: { id, userId }
@@ -142,7 +147,7 @@ module.exports = {
             res.status(200).json({ post });
         } catch (error) {
             console.log(error);
-            res.status(401).json({ error });
+            res.status(401).json({ error:{msg:'Couldn´t delete this post'} });
         }
     },
 };

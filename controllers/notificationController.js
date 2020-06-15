@@ -1,4 +1,6 @@
 const { Notification, NotificationCategory, User } = require('./../models');
+const Auth = require('./../middleware/Auth');
+
 module.exports = {
   // ------------------------------------------------------------------------------------------------
   list: async (req, res) => {
@@ -6,10 +8,13 @@ module.exports = {
       let { limit = 10, page = 1 } = req.query;
       limit = parseInt(limit);
       page = parseInt(page - 1);
-      const conectedUser = 6;
+
+      const conectedUser = await Auth.decodeToken(req, res);
+      const receiverId = conectedUser.id;
+
       const { count:size, rows:notifications } = await Notification.findAndCountAll({
         where: {
-          receiverId:conectedUser
+          receiverId
         },
         attributes: ['id', 'read','elementId'],
         include: [
@@ -31,7 +36,7 @@ module.exports = {
       });
       res.status(200).json({ size, notifications });
     } catch (error) {
-      res.status(401).json({ error });
+      res.status(401).json({ error:{msg:'Couldn´t list notifications'} });
     }
   },
   
@@ -39,12 +44,14 @@ module.exports = {
   delete: async (req, res) => {
     try {
       const { id } = req.params;
-      //Usuário conectado
-      const userId = 1;
+
+      const conectedUser = await Auth.decodeToken(req, res);
+      const userId = conectedUser.id;
+
       const notification = await Notification.destroy({ where: { id, userId } });
       res.status(200).json({ notification });
     } catch (error) {
-      res.status(401).json({ error });
+      res.status(401).json({ error:{msg:'Couldn´t delete notification'} });
     }
   },
   
@@ -53,13 +60,14 @@ module.exports = {
     try {
       const { id } = req.params;
       const { read } = req.body;
-      //Usuário conectado
-      const userId = 1;
+
+      const conectedUser = await Auth.decodeToken(req, res);
+      const userId = conectedUser.id;
 
       const notification = await Notification.update({ read }, { where: { id, userId } });
       res.status(200).json({notification});
     } catch (error) {
-      res.status(401).json({ error });
+      res.status(401).json({ error:{msg:'Couldn´t edit notification'} });
     }
   }
   

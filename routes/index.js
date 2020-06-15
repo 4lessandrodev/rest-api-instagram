@@ -16,13 +16,19 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 //--------------------------------------------------------------------
 
-//PRIVATE ROUTES
-//localhost:3000/signup
-router.post('/signup', upload.any(), userController.save);
+//PUBLIC ROUTES
+//http://localhost:3000/signup
+router.post('/register', upload.any(), userController.save);
 
-router.post('/signin');
+//http://localhost:3000/signin
+router.post('/login', userController.login);
 
+//http://localhost:3000/signout
+router.get('/logout', userController.logout);
+
+//http://localhost:3000/
 router.get('/', function (req, res) {
   res.render('index', { title: 'Home' });
 });
+
 module.exports = router;

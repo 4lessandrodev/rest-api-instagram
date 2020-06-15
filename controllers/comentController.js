@@ -1,6 +1,6 @@
 const { Coment, Notification, Post } = require('../models');
-const sequelize = require('sequelize');
 const { check, validationResult } = require('express-validator');
+const Auth = require('./../middleware/Auth');
 
 module.exports = {
   //-------------------------------------------------------
@@ -18,8 +18,7 @@ module.exports = {
       });
       res.status(200).json({ size, coments });
     } catch (error) {
-      console.log(error);
-      res.status(401).json({ error });
+      res.status(401).json({ error:{msg:'Could not list'} });
     }
   },
 
@@ -33,8 +32,8 @@ module.exports = {
       const { text } = req.body;
       const { postId } = req.params;
 
-      //Conected user
-      const userId = 1;
+      const conectedUser = await Auth.decodeToken(req, res);
+      const userId = conectedUser.id;
 
       const coment = await Coment.create({
         text,
@@ -45,7 +44,7 @@ module.exports = {
       await Notification.create({ categoryId: 3, userId, receiverId: post.userId, elementId: postId  });
       res.status(200).json({ coment });
     } catch (error) {
-      res.status(401).json({ error });
+      res.status(401).json({ error:{msg:'Couldn´t save comment'} });
     }
   },
 
@@ -53,8 +52,9 @@ module.exports = {
   delete: async (req, res) => {
     try {
       const { id } = req.params;
-      //Usuario conectado
-      const userId = 1;
+
+      const conectedUser = await Auth.decodeToken(req, res);
+      const userId = conectedUser.id;
 
       const coment = await Coment.destroy({
         where: {
@@ -63,7 +63,7 @@ module.exports = {
       });
       res.status(200).json({ coment });
     } catch (error) {
-      res.status(401).json({ error });
+      res.status(401).json({ error:{msg:'Couldn´t delete this comment'} });
     }
   },
 
@@ -76,8 +76,9 @@ module.exports = {
       } 
       const { id } = req.params;
       const { text } = req.body;
-      //Usuario conectado
-      const userId = 1;
+
+      const conectedUser = await Auth.decodeToken(req, res);
+      const userId = conectedUser.id;
 
       const coment = await Coment.update(
         { text },
@@ -89,7 +90,7 @@ module.exports = {
       );
       res.status(200).json({ coment });
     } catch (error) {
-      res.status(401).json({ error });
+      res.status(401).json({ error:{msg:'Couldn´t edit this comment'} });
     }
   },
 

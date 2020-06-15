@@ -6,6 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const Auth = require('./../middleware/Auth');
 const StoreImage = require('./../middleware/StoreImage');
+const bcrypt = require('bcrypt');
 require('dotenv').config();
 
 module.exports = {
@@ -22,49 +23,53 @@ module.exports = {
       if (!files) {
         return res.status(422).json({ error: { msg: 'Image is required' } });
       }
-
+      
       if (!name) {
         await StoreImage.delete(req);
         return res.status(422).json({ error: { msg: 'Name is required' } });
       }
-
+      
       const { email, password } = USER;
       const exists = await User.findOne({ where: { email }, attributes: ['email'] });
       if (exists != null) {
         await StoreImage.delete(req, res, next);
-        return res.status(401).json({ error: { message:'user already exists'} });
+        return res.status(401).json({ error: { message: 'user already exists' } });
       }
       const avatar = path.join(process.env.PROTOCOL, process.env.DOMAIN, process.env.IMAGES_FOLDER,
         process.env.AVATAR_FOLDER_UPLOAD, files[0].filename);
-
-      const user = await User.create({ email, password, name, avatar });
+        
+      const encriptedPass = await bcrypt.hashSync(password, 10);
+      console.log(encriptedPass);
+      const user = await User.create({ email, password:encriptedPass, name, avatar });
       user.password = undefined;
       const token = await Auth.generateToken(req, res, next, { id: user.id, email: user.email });
-
+        
       res.status(200).json({ user, token });
-
+        
     } catch (error) {
       await StoreImage.delete(req);
       res.status(401).json({ error });
     }
   },
-
+    
   //-------------------------------------------------------
   edit: async (req, res) => {
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(422).json({ error: errors.array() });
-      } 
+      }
       const { email, name } = req.body;
       const { files } = req;
       let avatar;
-      //Usuário conectado
-      const userId = 1;
+
+      const conectedUser = await Auth.decodeToken(req, res);
+      const userId = conectedUser.id;
+
       const exists = await User.findByPk(userId, { attributes: ['email', 'avatar'] });
-      
+        
       if (exists == null) {
-        return res.status(404).json({ error: {message:'User not existis'} });
+        return res.status(404).json({ error: { message: 'User not existis' } });
       }
       if (files[0]) {
         fs.unlinkSync(exists.avatar);
@@ -74,31 +79,32 @@ module.exports = {
       const user = await User.update(
         { email, password, name, avatar },
         { where: { id: userId } },
-        {attributes: { exclude: ['password', 'createdAt', 'updatedAt'] }},
+        { attributes: { exclude: ['password', 'createdAt', 'updatedAt'] } },
       );
       res.status(200).json({ user });
     } catch (error) {
-      res.status(401).json({ error });
+      res.status(401).json({ error:{msg:'Couldn´t edit user'} });
     }
   },
-
+        
   //-------------------------------------------------------
   delete: async (req, res) => {
     try {
-      //Usuário conectado
-      const userId = 1;
+      const conectedUser = await Auth.decodeToken(req, res);
+      const userId = conectedUser.id;
+
       const exists = await User.findByPk(userId, { attributes: ['email', 'avatar'] });
       if (exists == null) {
-        return res.status(404).json({ error: { message: 'User not existis' } });
+        return res.status(422).json({ error: { message: 'User not existis' } });
       }
       fs.unlinkSync(exists.avatar);
       const user = await User.destroy({ where: { id: userId } });
       res.status(200).json({ user });
     } catch (error) {
-      res.status(401).json({ error });
+      res.status(401).json({ error:{msg:'Couldn´t delete user'} });
     }
   },
-
+        
   //-------------------------------------------------------
   list: async (req, res) => {
     try {
@@ -106,17 +112,17 @@ module.exports = {
       limit = parseInt(limit);
       page = parseInt(page - 1);
       const { count: size, rows: users } = await User.findAndCountAll({
-        attributes: { exclude: ['password', 'createdAt', 'updatedAt']},
+        attributes: { exclude: ['password', 'createdAt', 'updatedAt'] },
         limit,
         offset: page * limit,
       });
       res.status(200).json({ users, size });
     } catch (error) {
       console.log(error);
-      res.status(401).json({ error });
+      res.status(401).json({ error:{msg:'Couldn´t list users'} });
     }
   },
-
+        
   //-------------------------------------------------------
   findByName: async (req, res) => {
     try {
@@ -125,14 +131,14 @@ module.exports = {
         where: {
           name: { [Op.like]: `%${name}%` },
         },
-        attributes: { exclude: ['password', 'createdAt', 'updatedAt'] } ,
+        attributes: { exclude: ['password', 'createdAt', 'updatedAt'] },
       });
       res.status(200).json({ user });
     } catch (error) {
-      res.status(401).json({ error });
+      res.status(401).json({ error:{msg:'Couldn´t find user'} });
     }
   },
-
+        
   //-------------------------------------------------------
   findById: async (req, res) => {
     try {
@@ -143,7 +149,41 @@ module.exports = {
         });
       res.status(200).json({ user });
     } catch (error) {
-      res.status(401).json({ error });
+      res.status(401).json({ error:{msg:'Couldn´t find user'} });
     }
   },
+          
+  //-------------------------------------------------------
+  login: async (req, res, next) => {
+    try {
+      const USER = await Auth.decodeHeader(req, res, next);
+      if (USER.error) {
+        return res.status(401).json({ error: { msg: USER.error } });
+      }
+      let user = await User.findOne({ where: { email: USER.email } });
+      const passMatch = bcrypt.compareSync(USER.password, user.password);
+      if (!passMatch || user.email != USER.email) {
+        return res.status(401).json({ error: { msg: 'User or password doesn´t match' } });
+      }
+      const token = await Auth.generateToken(req, res, next, { id: user.id, email: user.email });
+      user.password = undefined;
+      res.status(200).json({ user, token });
+    } catch (error) {
+      return res.status(401).json({ error: { msg: 'Invalid credential' } });
+    }
+  },
+
+  //-------------------------------------------------------
+  logout: async (req, res) => {
+    try {
+      let oldToken = await Auth.decodeToken(req, res);
+      const { id, email } = oldToken;
+      let token = await Auth.desconect(req, res, { id, email });
+      res.status(200).json({ token });
+    } catch (error) {
+      res.status(401).json({ error: { msg: 'Invalid credential' } });
+    }
+  }
+
 };
+        
