@@ -1,7 +1,5 @@
 # Rest Api Fake Instagram made with Express NodeJS
 
-O objetivo da criação desta api é colocar em prática o curso da DH e codar em equipe
-
 #### Technologies
 
 - NodeJS
