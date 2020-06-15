@@ -24,6 +24,8 @@ module.exports = function (sequelize, DataTypes) {
           model: 'User',
           key: 'id',
         },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       postId: {
         type: DataTypes.INTEGER(11),
@@ -33,6 +35,8 @@ module.exports = function (sequelize, DataTypes) {
           model: 'Post',
           key: 'id',
         },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
     },
     {

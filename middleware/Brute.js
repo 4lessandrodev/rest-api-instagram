@@ -22,7 +22,7 @@ module.exports = {
 
 
     var globalBruteforce = new ExpressBrute(store, {
-      freeRetries: 5,
+      freeRetries: 50,
       attachResetToRequest: false,
       refreshTimeoutOnRequest: false,
       minWait: 25 * 1000, // few secounds
