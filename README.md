@@ -52,15 +52,15 @@ Run your Api: npm start
 - Type a comment in a post
 - Delete a comment in a post 
 - Edit a comment in a post 
-- Send message for a user 
+- Send message for an user 
 - Edit a message 
 - Delete a message 
-- Follow a user 
-- Unfollow a user 
+- Follow an user 
+- Unfollow an user 
 - List your followers 
 - List who you're following
-- Find a user by name 
-- Find a user by id
+- Find an user by name 
+- Find an user by id
 - Get notifications 
 - Check notifications as read
 - Delete a notification
