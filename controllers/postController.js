@@ -24,7 +24,7 @@ module.exports = {
             if (!files) {
                 return res.status(422).json({ error: {msg:'Image is required'} });
             }
-            const image = path.join(process.env.PROTOCOL, process.env.DOMAIN, ':', process.env.PORT, process.env.IMAGES_FOLDER,
+            const image = path.join(process.env.PROTOCOL, process.env.DOMAIN + ':', process.env.PORT, process.env.IMAGES_FOLDER,
                 process.env.POST_FOLDER_UPLOAD, files[0].filename);
 
             const post = await Post.create({
@@ -34,6 +34,7 @@ module.exports = {
             });
             res.status(200).json({ post });
         } catch (error) {
+            console.log(error);
             res.status(401).json({ error:{msg:'couldn´t save post'} });
         }
     },
@@ -119,7 +120,7 @@ module.exports = {
 
             await StoreImage.deleteOldPostImage(exists.image);
 
-            image = path.join(process.env.PROTOCOL, process.env.DOMAIN, ':', process.env.PORT, process.env.IMAGES_FOLDER,
+            image = path.join(process.env.PROTOCOL, process.env.DOMAIN + ':', process.env.PORT, process.env.IMAGES_FOLDER,
                 process.env.POST_FOLDER_UPLOAD, files[0].filename);
             
             const post = await Post.update(
