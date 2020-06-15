@@ -1,8 +1,7 @@
 const { Post, Coment, User, Follower } = require('../models');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
-const { check, validationResult } = require('express-validator');
-const fs = require('fs');
+const { validationResult } = require('express-validator');
 const path = require('path');
 const Auth = require('./../middleware/Auth');
 require('dotenv').config();
@@ -129,7 +128,6 @@ module.exports = {
             });
             res.status(200).json({ post });
         } catch (error) {
-            console.log(error);
             await StoreImage.deletePostImage(req);
             res.status(401).json({ error:{msg:'Couldn´t edit post'} });
         }
@@ -156,7 +154,6 @@ module.exports = {
             });
             res.status(200).json({ post });
         } catch (error) {
-            console.log(error);
             res.status(401).json({ error:{msg:'Couldn´t delete this post'} });
         }
     },

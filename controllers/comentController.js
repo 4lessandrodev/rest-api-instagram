@@ -1,5 +1,5 @@
-const { Coment, Notification, Post } = require('../models');
-const { check, validationResult } = require('express-validator');
+const { Coment, Notification, Post, User } = require('../models');
+const { validationResult } = require('express-validator');
 const Auth = require('./../middleware/Auth');
 
 module.exports = {
@@ -13,6 +13,10 @@ module.exports = {
 
       const { count: size, rows: coments } = await Coment.findAndCountAll({
         where: { postId },
+        include: [
+          {
+            model: User, as: 'user_coment', attributes: ['id', 'name', 'avatar']
+          }],
         limit: limit,
         offset: page * limit,
       });

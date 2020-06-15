@@ -1,7 +1,7 @@
 const { Message, User, Notification } = require('./../models');
 const sequelize = require('sequelize');
 const Op = sequelize.Op;
-const { check, validationResult } = require('express-validator');
+const { validationResult } = require('express-validator');
 const Auth = require('./../middleware/Auth');
 
 module.exports = {  
@@ -86,7 +86,6 @@ module.exports = {
       res.status(200).json({ size, messages });
       
     } catch (error) {
-      console.log(error);
       res.status(401).json({ error:{msg:'Couldn´t list messages'} });
     }  
   }

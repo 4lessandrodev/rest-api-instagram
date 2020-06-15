@@ -1,8 +1,6 @@
 const { User } = require('../models');
 const sequelize = require('sequelize');
 const Op = sequelize.Op;
-const { validationResult, check } = require('express-validator');
-const fs = require('fs');
 const path = require('path');
 const Auth = require('./../middleware/Auth');
 const StoreImage = require('./../middleware/StoreImage');
