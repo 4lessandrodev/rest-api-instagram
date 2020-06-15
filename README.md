@@ -22,7 +22,7 @@ O objetivo da criação desta api é colocar em prática o curso da DH e codar e
 
 #### Use it
 
-`
+```javascript
 git clone https://github.com/ALESSANDROLMENEZES/rest-api-dojo.git
 npm install 
 Create and config your .env file in main directory, follow the .env-exemple
@@ -30,13 +30,15 @@ Create a data base: npx sequelize db:create
 Create the tables: npx sequelize db:migrate 
 Create fake data: npx sequelize seed:all
 Run your Api: npm start
-`
+```
 
 ------------
 
 #### Check the documentation
 
 [Link documentation](https://documenter.getpostman.com/view/9702967/Szzj7HP7?version=latest "Link documentation")
+
+![Documentation](http://alessandrodev.com/imagens/documentationapi.jpg "Documentation")
 
 #### Resources
 
