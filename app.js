@@ -6,6 +6,7 @@ const  logger = require('morgan');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const Auth = require('./middleware/Auth');
+const helmet = require('helmet');
 
 const  indexRouter = require('./routes/index');
 const  usersRouter = require('./routes/users');
@@ -14,14 +15,17 @@ const  postsRouter = require('./routes/posts');
 const  likesRouter = require('./routes/likes');
 const  followersRouter = require('./routes/followers');
 const  messagesRouter = require('./routes/messages');
-const  notificationsRouter = require('./routes/notifications');
+const notificationsRouter = require('./routes/notifications');
+const brute = require('./middleware/Brute');
  
 const  app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.set('trust proxy', 1);
 
+app.use(helmet());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
@@ -30,6 +34,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
+app.use(brute.lockManySolicitations());
 app.use('/', indexRouter);
 app.use(Auth.verifyToken);
 app.use('/users', usersRouter);

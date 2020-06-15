@@ -33,7 +33,7 @@ module.exports = {
         await StoreImage.deleteUserAvatar(req, res, next);
         return res.status(401).json({ error: { message: 'user already exists' } });
       }
-      const avatar = path.join(process.env.PROTOCOL, process.env.DOMAIN, process.env.IMAGES_FOLDER,
+      const avatar = path.join(process.env.PROTOCOL, process.env.DOMAIN, ':', process.env.PORT, process.env.IMAGES_FOLDER,
         process.env.AVATAR_FOLDER_UPLOAD, files[0].filename);
         
       const encriptedPass = await bcrypt.hashSync(password, 10);
@@ -74,7 +74,7 @@ module.exports = {
 
       if (files[0]) {
         await StoreImage.deleteOldUserAvatar(exists.avatar);
-        avatar = path.join(process.env.PROTOCOL, process.env.DOMAIN, process.env.IMAGES_FOLDER,
+        avatar = path.join(process.env.PROTOCOL, process.env.DOMAIN, ':', process.env.PORT, process.env.IMAGES_FOLDER,
           process.env.AVATAR_FOLDER_UPLOAD, files[0].filename);
       }
 
