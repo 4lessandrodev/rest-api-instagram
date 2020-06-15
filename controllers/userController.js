@@ -45,7 +45,7 @@ module.exports = {
         
     } catch (error) {
       await StoreImage.deleteUserAvatar(req);
-      res.status(401).json({ error });
+      res.status(401).json({ error:{msg:'Couldn´t create user'} });
     }
   },
     
