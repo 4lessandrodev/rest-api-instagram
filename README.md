@@ -28,7 +28,7 @@ npm install
 Create and config your .env file in main directory, follow the .env-exemple
 Create a data base: npx sequelize db:create
 Create the tables: npx sequelize db:migrate 
-Create fake data: npx sequelize seed:all
+Create fake data: npx sequelize db:seed:all
 Run your Api: npm start
 ```
 
